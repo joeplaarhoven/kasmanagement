@@ -5,18 +5,32 @@
  */
 package com.bp6.kasmanagement;
 
+import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+
 /**
  *
  * @author laarh
  */
-public class main {
+public class main extends Application {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.print("test");
+    public void start (Stage mainStage){
+        BorderPane root = new Overzicht();
+        Scene scene = new Scene(root,1000,1000);
+       
+        mainStage.setScene(scene);
+        mainStage.setTitle("Kasmonitoringsysteem");
+        mainStage.show();
+        
     }
     
+     public static void main(String [] args){
+        launch(args);
+    }
 }
