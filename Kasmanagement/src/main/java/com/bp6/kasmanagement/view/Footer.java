@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.bp6.kasmanagement;
+package com.bp6.kasmanagement.view;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
@@ -27,7 +22,7 @@ public class Footer extends BorderPane{
         
         footertext= new TextFlow();
        
-        Text text1 = new Text("Copyright ©2019");
+        Text text1 = new Text("Copyright ©2020");
         text1.setFont(Font.font("Verdana",11));
         text1.setFill(Color.WHITE); 
         
@@ -41,12 +36,8 @@ public class Footer extends BorderPane{
         
         footertext.getChildren().addAll(text1,text2,text3);
         footertext.setPadding(new Insets(3,0,0,3));
-        
-        
+    
         this.setCenter(footertext);
-        
-        
-        
         this.setBackground(new Background(new BackgroundFill(Color.web("#8B0000"),null,null)));
         this.setPrefHeight(50);
     }

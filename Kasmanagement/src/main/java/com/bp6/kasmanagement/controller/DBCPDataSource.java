@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bp6.kasmanagement;
+package com.bp6.kasmanagement.controller;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -20,9 +20,9 @@ public class DBCPDataSource {
      
      static{
          
-//          Connection URL:"jdbc:mysql://serverurl:3306/schemanaam?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT&enabledTLSProtocols=TLSv1.2&useSSL=true&user=mgmt_admin&password=)password"
+       // Connection URL:"jdbc:mysql://serverurl:3306/schemanaam?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT&enabledTLSProtocols=TLSv1.2&useSSL=true&user=mgmt_admin&password=)password"
         ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://serverbp5.mysql.database.azure.com:3306/bp5?useSSL=true");
+        ds.setUrl("jdbc:mysql://serverbp5.mysql.database.azure.com:3306/kasmanagement?useSSL=true&enabledTLSProtocols=TLSv1.2");
         ds.setUsername("mgmt_admin");
         ds.setPassword("AaL6HS3LRca4mbO34Ow9");
         ds.setMinIdle(5);

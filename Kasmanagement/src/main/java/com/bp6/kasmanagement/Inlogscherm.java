@@ -5,6 +5,7 @@
  */
 package com.bp6.kasmanagement;
 
+import com.bp6.kasmanagement.view.Hoofdscherm;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;

@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bp6.kasmanagement;
+package com.bp6.kasmanagement.view;
 
+import com.bp6.kasmanagement.Beheerderscherm;
+import com.bp6.kasmanagement.Inlogscherm;
+import com.bp6.kasmanagement.view.Header;
+import com.bp6.kasmanagement.view.Footer;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
