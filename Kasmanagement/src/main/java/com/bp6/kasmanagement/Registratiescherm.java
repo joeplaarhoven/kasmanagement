@@ -5,6 +5,9 @@
  */
 package com.bp6.kasmanagement;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -131,6 +134,40 @@ public class Registratiescherm extends BorderPane {
             this.setCursor(Cursor.DEFAULT);
         });
         
-        
+        registratieknop.setOnAction(event -> {
+
+            String naamdatabase = naamvak.getText();
+            String emaildatabase = emailvak.getText();
+            String wachtwoorddatabase = wachtwoordvak.getText();
+            String herhaalwachtwoorddatabase = herhaalvak.getText();
+
+            if (wachtwoorddatabase.equals(herhaalwachtwoorddatabase) && !wachtwoorddatabase.equals("")) {
+                try {
+                    Connection con = DBCPDataSource.getConnection();
+                    Statement stat = con.createStatement();
+                    stat.executeUpdate("insert into gebruiker values ('" + naamdatabase + "','" + wachtwoorddatabase + "')");
+
+                } catch (SQLException se) {
+
+                    se.printStackTrace();
+                }
+                
+                this.getChildren().clear();
+                inlogscherm = new Inlogscherm();
+                this.setCenter(inlogscherm);
+            } else {
+
+               
+                wachtwoordvak.clear();
+                herhaalvak.clear();
+                
+                fouttext.setVisible(true);
+                
+                
+               
+
+            }
+
+        });
     }
 }

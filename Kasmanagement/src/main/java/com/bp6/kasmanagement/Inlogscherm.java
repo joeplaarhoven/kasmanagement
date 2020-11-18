@@ -120,7 +120,7 @@ public class Inlogscherm extends BorderPane {
             String textvakstring = inlogvak.getText();
             String wachtwoordvakstring = wachtwoordvak.getText();
             
-            if (textvakstring.equals("beheerder") && !textvakstring.equals("") && wachtwoordvakstring.equals("beheerder123") && !wachtwoordvakstring.equals("")) {
+            if (textvakstring.equals("1") && !textvakstring.equals("") && wachtwoordvakstring.equals("1") && !wachtwoordvakstring.equals("")) {
 
                         this.getChildren().clear();
 //                        beheerderscherm = new Beheerderscherm();
