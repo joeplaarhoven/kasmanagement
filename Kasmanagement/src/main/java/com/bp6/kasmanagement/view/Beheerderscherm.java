@@ -5,22 +5,23 @@
  */
 package com.bp6.kasmanagement.view;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 /**
  *
@@ -29,62 +30,102 @@ import javafx.scene.layout.VBox;
 public class Beheerderscherm extends BorderPane{
     
     
-    private TextField testvak = new TextField();
-    
+    private HBox menu = new HBox(),gebruikerBewerk= new HBox(),
+            verandering1= new HBox(),verandering2= new HBox();
+    private VBox totaal = new VBox();
+    private ChoiceBox gebruiker = new ChoiceBox();
+    private CheckBox bewerkkeuze1 = new CheckBox("Bewerken");
+    private CheckBox bewerkkeuze2 = new CheckBox("Verwijderen");
+    private Label gebruikerslabel = new Label("Gebruikersnaam:         "),veranderingsLabel1 = new Label("Gebruikersnaam:"),
+            veranderingslabel2 = new Label("Gebruikersnaam:");
     private Button uitloggen = new Button("Uitloggen"),
-            Wissen = new Button("Wissen");
-    
-    private HBox hbox_tabelview = new HBox(),
-            hbox_uitlogknop = new HBox(),
-            hbox_wisknop = new HBox(),
-            hbox_laco_ul = new HBox();
-    
-    private VBox vbox_hboxen = new VBox(),
-            vbox_tabelview = new VBox();
-    
+            Wissen = new Button("Wissen"), testknop = new Button("verandering2sdsdf");
     private Inlogscherm inlogscherm;
-    
-    private Label sorteerlabel = new Label("Sorteer op:");
-    
-    private TableView tableView = new TableView();
+    private TextField veranderingsvak1 = new TextField(),
+            veranderingsvak2 = new TextField();
     
     public Beheerderscherm(){
         
-        hbox_uitlogknop.getChildren().add(uitloggen);
-        hbox_uitlogknop.setAlignment(Pos.CENTER_RIGHT);
-        hbox_uitlogknop.setPadding(new Insets(5, 10, 0, 0));
-
-        hbox_laco_ul.getChildren().addAll(hbox_uitlogknop);
-        hbox_laco_ul.setAlignment(Pos.CENTER_RIGHT);
-        hbox_laco_ul.setSpacing(780);
-
-        hbox_tabelview.getChildren().add(tableView);
-        hbox_tabelview.setPrefWidth(980);
-        hbox_tabelview.setPrefHeight(520);
-        hbox_tabelview.setAlignment(Pos.CENTER);
-
-        hbox_wisknop.getChildren().add(Wissen);
-        hbox_wisknop.setAlignment(Pos.CENTER_RIGHT);
-        hbox_wisknop.setPadding(new Insets(5, 10, 0, 0));
-
-        vbox_hboxen.getChildren().addAll(hbox_laco_ul, hbox_tabelview, hbox_wisknop);
-        vbox_hboxen.setAlignment(Pos.TOP_CENTER);
-        vbox_hboxen.setSpacing(20);
+        menu.setPadding(new Insets(15, 12, 15, 12));
+        menu.setSpacing(10);
+        menu.getChildren().addAll(uitloggen);
+        menu.setAlignment(Pos.CENTER_RIGHT);
         
-        TableColumn column1 = new TableColumn<>("tekst1");
-        column1.setPrefWidth(140);
-        TableColumn column2 = new TableColumn<>("tekst2");
-        column2.setPrefWidth(140);
-        TableColumn column3 = new TableColumn<>("tekst3");
-        column3.setPrefWidth(140);
-        TableColumn column4 = new TableColumn<>("tekst4");
-        column4.setPrefWidth(140);
-        TableColumn column5 = new TableColumn<>("tekst5");
-        column5.setPrefWidth(140);
+        gebruiker.setMinSize(180, 30);
         
-        tableView.setMaxWidth(980);
-        tableView.getColumns().addAll(column1, column2, column3, column4, column5);
+        gebruikerslabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
+        gebruikerslabel.setMinHeight(30);
+        veranderingsLabel1.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
+        veranderingsLabel1.setMinHeight(30);
+        veranderingslabel2.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
+        veranderingslabel2.setMinHeight(30);     
         
+        veranderingsvak1.setMinSize(180, 30);
+        veranderingsvak2.setMinSize(180, 30);
+        
+        gebruikerBewerk.getChildren().addAll(gebruikerslabel,gebruiker,bewerkkeuze1,bewerkkeuze2);
+        gebruikerBewerk.setSpacing(10);
+        verandering1.getChildren().addAll(veranderingsLabel1,veranderingsvak1,Wissen);
+        verandering1.setSpacing(10);
+        verandering2.getChildren().addAll(veranderingslabel2,veranderingsvak2);
+        verandering2.setSpacing(10);
+        
+        testknop.setMinWidth(250);
+        testknop.setVisible(false);
+        Wissen.setVisible(false);
+        veranderingsLabel1.setVisible(false);
+        veranderingsvak1.setVisible(false);
+        veranderingslabel2.setVisible(false);
+        veranderingsvak2.setVisible(false);
+        
+        totaal.getChildren().addAll(gebruikerBewerk,verandering1,verandering2);
+        totaal.setAlignment(Pos.CENTER);
+        totaal.setSpacing(10);
+        
+        
+        
+        bewerkkeuze1.setOnAction(event->{
+            
+           if (bewerkkeuze1.isSelected() ) {
+
+                    Wissen.setVisible(true);
+                    Wissen.setText("Bewerken");
+                    veranderingsLabel1.setVisible(true);
+                    veranderingsLabel1.setText("Naam wijzigen:            ");
+                    veranderingsvak1.setVisible(true);
+                    veranderingslabel2.setVisible(true);
+                    veranderingslabel2.setText("Wachtwoord wijzigen: ");
+                    veranderingsvak2.setVisible(true);
+                    
+
+                } else {
+
+                   
+                }
+            
+        });
+        
+        bewerkkeuze2.setOnAction(event->{
+            
+           if (bewerkkeuze2.isSelected() ) {
+
+                    Wissen.setVisible(true);
+                    Wissen.setText("Verwijderen");
+                    veranderingsLabel1.setVisible(false);
+                    veranderingsLabel1.setText("Naam wijzigen:    ");
+                    veranderingsvak1.setVisible(false);
+                    veranderingslabel2.setVisible(false);
+                    veranderingslabel2.setText("Wachtwoord wijzigen:");
+                    veranderingsvak1.setVisible(false);
+                    veranderingsvak2.setVisible(false);
+                    
+                } else {
+
+                   
+                }
+            
+        });
+    
         uitloggen.setOnAction(event -> {
 
             this.getChildren().clear();
@@ -102,13 +143,12 @@ public class Beheerderscherm extends BorderPane{
             Optional<ButtonType> result = alert.showAndWait();
             });
 
-        this.setCenter(vbox_hboxen);
+        this.setTop(menu);
+        this.setLeft(testknop);
+        this.setCenter(totaal);
         
-//        uitloggen.setOnAction(event -> {
-//
-//            this.getChildren().clear();
-//            inlogscherm = new Inlogscherm();
-//            this.setCenter(inlogscherm);
+        
+
         
     }
     

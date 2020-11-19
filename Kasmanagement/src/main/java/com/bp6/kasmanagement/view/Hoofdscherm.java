@@ -28,7 +28,6 @@ public class Hoofdscherm extends BorderPane {
    private File file_logo = new File("Res/profielfoto.png");
    private Image image_logo;
    private ImageView imageview;
-   private HBox hbox = new HBox();
    private VBox vbox = new VBox();
    private Label gebruikersnaam = new Label("Theo de Visser");
    private Label rol = new Label("Beheerder");
@@ -64,12 +63,12 @@ public class Hoofdscherm extends BorderPane {
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(35, 5, 5, 5));
         
-//        hbox.getChildren().add(vbox);
-//        hbox.setPadding(new Insets(65, 5, 5, 40));
-//        hbox.setMaxSize(10, 50);
         
         
-        this.setRight(vbox);
+
+        
+        
+        this.setLeft(vbox);
         
         this.setTop(menu);
       
