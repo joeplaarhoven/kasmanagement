@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -23,8 +24,10 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -43,7 +46,7 @@ public class GebruikerBewerken extends BorderPane{
             veranderingsvak2 = new TextField();
     private RadioButton bewerkkeuze= new RadioButton("Bewerken"), verwijderkeuze = new RadioButton("Verwijderen");
     private ToggleGroup radiogroep = new ToggleGroup();
-    
+ 
     
     public GebruikerBewerken(){
         
@@ -79,28 +82,28 @@ public class GebruikerBewerken extends BorderPane{
         totaal.setAlignment(Pos.CENTER);
         totaal.setSpacing(10);
         
-//        Connection con1 = null;
-//        try {
-//            gebruiker.getItems().clear();
-//            
-//            con1 = DBCPDataSource.getConnection();
-//            Statement stat = con1.createStatement();
-//            ResultSet result = stat.executeQuery("select * from gebruiker");
-//           
-//            while(result.next()){
-//                String strGbNaam = result.getString("Gebruikersnaam");
-//                gebruiker.getItems().add(strGbNaam);
-//               
-//            }
-//        } catch (SQLException se) {
-//            se.printStackTrace();
-//        } finally {
-//            try {
-//                con1.close();
-//            } catch (Exception e) {
-//
-//            }
-//        }
+        Connection con1 = null;
+        try {
+            gebruiker.getItems().clear();
+            
+            con1 = DBCPDataSource.getConnection();
+            Statement stat = con1.createStatement();
+            ResultSet result = stat.executeQuery("select * from gebruiker");
+           
+            while(result.next()){
+                String strGbNaam = result.getString("Gebruikersnaam");
+                gebruiker.getItems().add(strGbNaam);
+               
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+            try {
+                con1.close();
+            } catch (Exception e) {
+
+            }
+        }
         
         bewerkkeuze.setOnAction(event->{
             
@@ -154,6 +157,8 @@ public class GebruikerBewerken extends BorderPane{
 
             Optional<ButtonType> result = alert.showAndWait();
             });
+        
+        
         
         this.setCenter(totaal);
     }
