@@ -124,47 +124,61 @@ public class Inlogscherm extends BorderPane {
 
             String textvakstring = inlogvak.getText();
             String wachtwoordvakstring = wachtwoordvak.getText();
-            Connection con = null;
-            try {
-                con = DBCPDataSource.getConnection();
-                Statement stat1 = con.createStatement();
-                ResultSet result = stat1.executeQuery("select * from gebruiker");
-
-                while (result.next()) {
-                    String strNaam = result.getString("gebruikersnaam");
-                    String strWachtwoord = result.getString("wachtwoord");
-                    if (textvakstring.equals(strNaam) && !textvakstring.equals("") && wachtwoordvakstring.equals(strWachtwoord) && !wachtwoordvakstring.equals("")) {
-
-                        this.getChildren().clear();
-                         hoofdscherm = new Hoofdscherm();
-                        this.setCenter(hoofdscherm);
-
-                        if (strNaam.equals("beheerder") && strWachtwoord.equals("beheerder")) {
+//            Connection con = null;
+//            try {
+//                con = DBCPDataSource.getConnection();
+//                Statement stat1 = con.createStatement();
+//                ResultSet result = stat1.executeQuery("select * from gebruiker");
+//
+//                while (result.next()) {
+//                    String strNaam = result.getString("gebruikersnaam");
+//                    String strWachtwoord = result.getString("wachtwoord");
+//                    if (textvakstring.equals(strNaam) && !textvakstring.equals("") && wachtwoordvakstring.equals(strWachtwoord) && !wachtwoordvakstring.equals("")) {
+//
+//                        this.getChildren().clear();
+//                         hoofdscherm = new Hoofdscherm();
+//                        this.setCenter(hoofdscherm);
+//
+//                        if (strNaam.equals("beheerder") && strWachtwoord.equals("beheerder")) {
+//
+//                            this.getChildren().clear();
+//                            beheerderscherm = new Beheerderscherm();
+//                            this.setCenter(beheerderscherm);
+//                        }
+//                    } else {
+//
+//                        inlogvak.clear();
+//                        wachtwoordvak.clear();
+//                        fouttext.setVisible(true);
+//                    }
+//
+//                }
+//
+//            } catch (SQLException se) {
+//
+//                se.printStackTrace();
+//            } finally {
+//                try {
+//                    con.close();
+//                } catch (Exception e) {
+//
+//                }
+//            }
+            
+             if (textvakstring.equals("beheerder") && wachtwoordvakstring.equals("beheerder")) {
 
                             this.getChildren().clear();
                             beheerderscherm = new Beheerderscherm();
                             this.setCenter(beheerderscherm);
                         }
-                    } else {
+                    else {
 
                         inlogvak.clear();
                         wachtwoordvak.clear();
                         fouttext.setVisible(true);
                     }
 
-                }
-
-            } catch (SQLException se) {
-
-                se.printStackTrace();
-            } finally {
-                try {
-                    con.close();
-                } catch (Exception e) {
-
-                }
-            }
-
+    
         });
         
         this.setCenter(vbox__hbox__hbox);

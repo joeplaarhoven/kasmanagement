@@ -29,8 +29,8 @@ public class Hoofdscherm extends BorderPane {
    private Image image_logo;
    private ImageView imageview;
    private VBox vbox = new VBox();
-   private Label gebruikersnaam = new Label("Theo de Visser");
-   private Label rol = new Label("Beheerder");
+   private Label gebruikersnaam = new Label("Karel de Grote");
+   private Label rol = new Label("Operator");
    private Inlogscherm inlogscherm;
    
     
