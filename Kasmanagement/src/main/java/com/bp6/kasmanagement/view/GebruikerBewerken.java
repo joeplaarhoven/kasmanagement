@@ -192,7 +192,7 @@ public class GebruikerBewerken extends BorderPane{
             stat1 = con.createStatement();
             stat2 = con.createStatement();
             stat1.executeUpdate("update gebruiker set gebruikersnaam =  '" + gebruikerwijzigen + "' where gebruikersnaam = '"+ gebruiker.getSelectionModel().getSelectedItem()+"'");
-            stat2.executeUpdate("update gebruiker set wachtwoord =  '" + wachtwoordwijzigen + "''");
+            stat2.executeUpdate("update gebruiker set wachtwoord =  '" + wachtwoordwijzigen + "' where gebruikersnaam = '"+ gebruiker.getSelectionModel().getSelectedItem()+"'");
             
             } catch (SQLException se) {
             se.printStackTrace();
