@@ -5,19 +5,138 @@
  */
 package com.bp6.kasmanagement.view;
 
+import com.bp6.kasmanagement.controller.DBCPDataSource;
+import getset.Kas;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  *
- * @author dahir
+ * @author laarh
  */
 public class KasBeheren extends BorderPane{
     
-    private Label HelloWorld = new Label("Hello World");
+    private Button kasCreateBtn = new Button("Maak nieuwe kas aan");
+    private Label kasNaamLbl = new Label("Naam van kas:");
+    private TextField kasNaam = new TextField("");
+    private Kas kas;
+     private VBox vbox_el_wwl = new VBox(),
+            vbox__hbox__hbox = new VBox(),
+            vbox_ilv_wwv_hbox_ilk = new VBox();
+
+    private HBox hbox_ilk = new HBox(),
+            hbox__vbox__vbox = new HBox(),
+            hbox_rt = new HBox();
+    
+    
+    private TableView table = new TableView();
+    
     
     public KasBeheren(){
         
-        this.setCenter(HelloWorld);
+        
+        hbox_ilk = new HBox();
+        hbox_ilk.getChildren().add(kasCreateBtn);
+        hbox_ilk.setAlignment(Pos.CENTER_RIGHT);
+
+        hbox__vbox__vbox.getChildren().addAll(vbox_el_wwl, vbox_ilv_wwv_hbox_ilk);
+        hbox__vbox__vbox.setSpacing(20);
+        hbox__vbox__vbox.setAlignment(Pos.CENTER);
+
+        
+        vbox_el_wwl.getChildren().addAll(kasNaamLbl);
+        vbox_el_wwl.setSpacing(22);
+        
+        vbox_ilv_wwv_hbox_ilk.getChildren().addAll(kasNaam, hbox_ilk);
+        vbox_ilv_wwv_hbox_ilk.setAlignment(Pos.CENTER);
+        vbox_ilv_wwv_hbox_ilk.setSpacing(10);
+
+        vbox__hbox__hbox.getChildren().addAll(hbox_rt, hbox__vbox__vbox);
+        vbox__hbox__hbox.setAlignment(Pos.TOP_CENTER);
+        vbox__hbox__hbox.setSpacing(250);
+        ObservableList<Kas> items = FXCollections.observableArrayList();
+        
+         kasCreateBtn.setOnAction(event -> {
+            java.util.Date dt = new java.util.Date();
+
+            java.text.SimpleDateFormat sdf = 
+                 new java.text.SimpleDateFormat("yyyy-MM-dd");
+
+            String currentTime = sdf.format(dt);
+            this.getChildren().clear();
+            Connection con1 = null;
+            try {
+
+                con1 = DBCPDataSource.getConnection();
+                Statement stat = con1.createStatement();
+                boolean result = stat.execute("INSERT INTO kas (kasNaam, datum) VALUES('" + kasNaam.getText()+ "', '"+currentTime+"')");
+                
+                ResultSet result1 = stat.executeQuery("select * from kas");
+
+                while(result1.next()){
+                    String strKasNaam= result1.getString("kasNaam");
+                    Integer strKasNummer = result1.getInt("kasNummer");
+                    String strDatum = result1.getString("datum");
+                    String strproduct = result1.getString("product");
+                    
+                    Kas kas1 = new Kas(strKasNummer, strKasNaam, strproduct, strDatum);
+                    items.add(kas1);
+                }
+
+            } catch (SQLException se) {
+                se.printStackTrace();
+            } finally {
+                try {
+                    con1.close();
+                } catch (Exception e) {
+
+                }
+            }     
+            
+            
+            
+            table.setEditable(true);
+ 
+        TableColumn kasNaamCol = new TableColumn("Kas naam");
+        kasNaamCol.setCellValueFactory(
+            new PropertyValueFactory<Kas,String>("kasNaam")
+        );
+        TableColumn productCol = new TableColumn("Product");
+        productCol.setCellValueFactory(
+            new PropertyValueFactory<Kas,String>("product")
+        );
+        TableColumn datumCol = new TableColumn("Datum");
+        
+        
+        
+        datumCol.setCellValueFactory(
+            new PropertyValueFactory<Kas,String>("datumTijd")
+        );
+        
+        table.setItems(items);
+        table.getColumns().addAll(kasNaamCol, productCol, datumCol);
+        
+        this.setCenter(table);
+        });
+          this.setCenter(vbox__hbox__hbox);
     }
 }
