@@ -143,7 +143,9 @@ public class KasBeheren extends BorderPane{
 
 
           this.setCenter(hbox__vbox__vbox);
+          hbox__vbox__vbox.getChildren().addAll(table);
     }
-            hbox__vbox__vbox.getChildren().addAll(table);
+           
 }
-}
+ 
+
