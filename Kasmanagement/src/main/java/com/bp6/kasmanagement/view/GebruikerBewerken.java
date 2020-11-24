@@ -107,7 +107,7 @@ public class GebruikerBewerken extends BorderPane{
         
         bewerkkeuze.setOnAction(event->{
             
-           if (bewerkkeuze.isSelected() ) {
+           if (bewerkkeuze.isSelected()) {
 
                     Wissen.setVisible(true);
                     Wissen.setText("Bewerken");
@@ -118,13 +118,19 @@ public class GebruikerBewerken extends BorderPane{
                     veranderingslabel2.setText("Wachtwoord wijzigen: ");
                     veranderingsvak2.setVisible(true);
                     
+                    handler1();
+                    
 
                 } else {
 
                    
                 }
+           
             
         });
+        
+       
+                    
         
         verwijderkeuze.setOnAction(event->{
             
@@ -163,5 +169,42 @@ public class GebruikerBewerken extends BorderPane{
         this.setCenter(totaal);
     }
     
-    
+    public void handler1() {
+        
+     Wissen.setOnAction(event -> {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            String s = "weet u zeker dat u alle gegevens wilt wijzigen?";
+            alert.setContentText(s);
+
+            Optional<ButtonType> result = alert.showAndWait();
+          
+            
+            String gebruikerwijzigen=veranderingsvak1.getText();
+            String wachtwoordwijzigen = veranderingsvak2.getText();
+            Connection con = null;
+            Statement stat1 = null;
+            Statement stat2 = null;
+            
+            
+            try {
+            con = DBCPDataSource.getConnection();
+            stat1 = con.createStatement();
+            stat2 = con.createStatement();
+            stat1.executeUpdate("update gebruiker set gebruikersnaam =  '" + gebruikerwijzigen + "' where gebruikersnaam = '"+ gebruiker.getSelectionModel().getSelectedItem()+"'");
+            stat2.executeUpdate("update gebruiker set wachtwoord =  '" + wachtwoordwijzigen + "''");
+            
+            } catch (SQLException se) {
+            se.printStackTrace();
+            }finally {
+            try {
+                con.close();
+            } catch (Exception e) {
+
+                }
+            }
+          });
+        
+}
+      
 }
