@@ -3,9 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bp6.kasmanagement;
+package com.bp6.kasmanagement.view;
 
-import com.bp6.kasmanagement.view.Hoofdscherm;
+import com.bp6.kasmanagement.controller.DBCPDataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -120,16 +124,27 @@ public class Inlogscherm extends BorderPane {
 
             String textvakstring = inlogvak.getText();
             String wachtwoordvakstring = wachtwoordvak.getText();
-            
-            if (textvakstring.equals("1") && !textvakstring.equals("") && wachtwoordvakstring.equals("1") && !wachtwoordvakstring.equals("")) {
+            Connection con = null;
+            try {
+                con = DBCPDataSource.getConnection();
+                Statement stat1 = con.createStatement();
+                ResultSet result = stat1.executeQuery("select * from gebruiker");
+
+                while (result.next()) {
+                    String strNaam = result.getString("gebruikersnaam");
+                    String strWachtwoord = result.getString("wachtwoord");
+                    if (textvakstring.equals(strNaam) && !textvakstring.equals("") && wachtwoordvakstring.equals(strWachtwoord) && !wachtwoordvakstring.equals("")) {
 
                         this.getChildren().clear();
-//                        beheerderscherm = new Beheerderscherm();
-//                        this.setCenter(beheerderscherm);
-                        hoofdscherm = new Hoofdscherm();
+                         hoofdscherm = new Hoofdscherm();
                         this.setCenter(hoofdscherm);
 
-                        
+                        if (strNaam.equals("beheerder") && strWachtwoord.equals("beheerder")) {
+
+                            this.getChildren().clear();
+                            beheerderscherm = new Beheerderscherm();
+                            this.setCenter(beheerderscherm);
+                        }
                     } else {
 
                         inlogvak.clear();
@@ -137,7 +152,20 @@ public class Inlogscherm extends BorderPane {
                         fouttext.setVisible(true);
                     }
 
-               });
+                }
+
+            } catch (SQLException se) {
+
+                se.printStackTrace();
+            } finally {
+                try {
+                    con.close();
+                } catch (Exception e) {
+
+                }
+            }
+
+        });
         
         this.setCenter(vbox__hbox__hbox);
         this.setBackground(new Background(new BackgroundFill(Color.web("#FFFFE0"), null, null)));

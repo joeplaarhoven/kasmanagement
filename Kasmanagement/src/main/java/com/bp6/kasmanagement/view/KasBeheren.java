@@ -34,7 +34,7 @@ import javafx.scene.layout.VBox;
  * @author laarh
  */
 public class KasBeheren extends BorderPane{
-    
+
     private Button kasCreateBtn = new Button("Maak nieuwe kas aan");
     private Label kasNaamLbl = new Label("Naam van kas:");
     private TextField kasNaam = new TextField("");
@@ -46,24 +46,24 @@ public class KasBeheren extends BorderPane{
     private HBox hbox_ilk = new HBox(),
             hbox__vbox__vbox = new HBox(),
             hbox_rt = new HBox();
-    
-    
+
+
     private TableView table = new TableView();
-    
-    
+
+
     public KasBeheren(){
-        
-        
+
+
         hbox_ilk = new HBox();
 
         hbox__vbox__vbox.getChildren().addAll(kasNaamLbl, kasNaam, kasCreateBtn);
 
         ObservableList<Kas> items = FXCollections.observableArrayList();
-        
+
          kasCreateBtn.setOnAction(event -> {
             java.util.Date dt = new java.util.Date();
 
-            java.text.SimpleDateFormat sdf = 
+            java.text.SimpleDateFormat sdf =
                  new java.text.SimpleDateFormat("yyyy-MM-dd");
 
             String currentTime = sdf.format(dt);
@@ -74,10 +74,10 @@ public class KasBeheren extends BorderPane{
                 con1 = DBCPDataSource.getConnection();
                 Statement stat = con1.createStatement();
                 boolean result = stat.execute("INSERT INTO kas (kasNaam, datum) VALUES('" + kasNaam.getText()+ "', '"+currentTime+"')");
-                
+
                 ResultSet result1 = stat.executeQuery("select * from kas");
 
-                
+
 
             } catch (SQLException se) {
                 se.printStackTrace();
@@ -87,25 +87,25 @@ public class KasBeheren extends BorderPane{
                 } catch (Exception e) {
 
                 }
-            }    
+            }
          });
             Connection con1 = null;
-            
+
             try {
                 con1 = DBCPDataSource.getConnection();
                 Statement stat = con1.createStatement();
-                
+
                 ResultSet result1 = stat.executeQuery("select * from kas");
                 while(result1.next()){
                     String strKasNaam= result1.getString("kasNaam");
                     Integer strKasNummer = result1.getInt("kasNummer");
                     String strDatum = result1.getString("datum");
                     String strproduct = result1.getString("product");
-                    
+
                     Kas kas1 = new Kas(strKasNummer, strKasNaam, strproduct, strDatum);
                     items.add(kas1);
                 }
-            
+
             } catch (SQLException se) {
                 se.printStackTrace();
             } finally {
@@ -114,10 +114,12 @@ public class KasBeheren extends BorderPane{
                 } catch (Exception e) {
 
                 }
-            
-            
+            }
+
+
+
             table.setEditable(true);
- 
+
         TableColumn kasNaamCol = new TableColumn("Kas naam");
         kasNaamCol.setCellValueFactory(
             new PropertyValueFactory<Kas,String>("kasNaam")
@@ -127,19 +129,19 @@ public class KasBeheren extends BorderPane{
             new PropertyValueFactory<Kas,String>("product")
         );
         TableColumn datumCol = new TableColumn("Datum");
-        
-        
-        
+
+
+
         datumCol.setCellValueFactory(
             new PropertyValueFactory<Kas,String>("datumTijd")
         );
-        
+
         table.setItems(items);
         table.getColumns().addAll(kasNaamCol, productCol, datumCol);
-        
+
         this.setCenter(table);
-        
-        
+
+
           this.setCenter(hbox__vbox__vbox);
     }
             hbox__vbox__vbox.getChildren().addAll(table);

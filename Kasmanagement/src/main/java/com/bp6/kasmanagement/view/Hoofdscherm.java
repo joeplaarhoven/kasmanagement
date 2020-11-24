@@ -7,6 +7,7 @@ package com.bp6.kasmanagement.view;
 
 import java.io.File;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -27,25 +28,30 @@ public class Hoofdscherm extends BorderPane {
    private File file_logo = new File("Res/profielfoto.png");
    private Image image_logo;
    private ImageView imageview;
-   private HBox hbox = new HBox();
    private VBox vbox = new VBox();
-   private Label gebruikersnaam = new Label("Theo de Visser");
-   private Label rol = new Label("Beheerder");
+   private Label gebruikersnaam = new Label("Karel de Grote");
+   private Label rol = new Label("Operator");
+   private Inlogscherm inlogscherm;
    
     
     public Hoofdscherm(){
         
-        Button button1 = new Button("Kas 1");
-        Button button2 = new Button("Kas 2");        
-        Button button3 = new Button("Kas 3");
-        
+        Button button1 = new Button("Uitloggen");
         button1.setPrefSize(100, 20);
-        button2.setPrefSize(100, 20);
-        button3.setPrefSize(100, 20);
+        button1.setOnAction(event -> {
+
+            this.getChildren().clear();
+            inlogscherm = new Inlogscherm();
+            this.setCenter(inlogscherm);
+
+        });
+        
+        
         
         menu.setPadding(new Insets(15, 12, 15, 12));
         menu.setSpacing(10);
-        menu.getChildren().addAll(button1, button2, button3);
+        menu.getChildren().addAll(button1);
+        menu.setAlignment(Pos.CENTER_RIGHT);
         
         image_logo = new Image(file_logo.toURI().toString());
         imageview = new ImageView(image_logo);
@@ -57,12 +63,12 @@ public class Hoofdscherm extends BorderPane {
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(35, 5, 5, 5));
         
-//        hbox.getChildren().add(vbox);
-//        hbox.setPadding(new Insets(65, 5, 5, 40));
-//        hbox.setMaxSize(10, 50);
         
         
-        this.setRight(vbox);
+
+        
+        
+        this.setLeft(vbox);
         
         this.setTop(menu);
       

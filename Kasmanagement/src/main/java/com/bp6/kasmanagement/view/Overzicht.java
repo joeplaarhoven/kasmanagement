@@ -5,8 +5,6 @@
  */
 package com.bp6.kasmanagement.view;
 
-import com.bp6.kasmanagement.Beheerderscherm;
-import com.bp6.kasmanagement.Inlogscherm;
 import com.bp6.kasmanagement.view.Header;
 import com.bp6.kasmanagement.view.Footer;
 import javafx.scene.layout.BorderPane;

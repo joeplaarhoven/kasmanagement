@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bp6.kasmanagement;
+package com.bp6.kasmanagement.view;
 
 import com.bp6.kasmanagement.controller.DBCPDataSource;
 import java.sql.Connection;
@@ -30,14 +30,12 @@ import javafx.scene.text.Text;
  */
 public class Registratiescherm extends BorderPane {
     
-    private TextField naamvak = new TextField(),
-            emailvak = new TextField();
+    private TextField naamvak = new TextField();
 
     private PasswordField wachtwoordvak = new PasswordField(),
             herhaalvak = new PasswordField();
 
     private Label naamlabel = new Label("Naam:"),
-            emaillabel = new Label("Email:"),
             wachtwoordlabel = new Label("Wachtwoord:"),
             herhaallabel = new Label("Herhaal Wachtwoord:"),
             spacelabel = new Label("");
@@ -61,9 +59,6 @@ public class Registratiescherm extends BorderPane {
         naamvak.setMaxWidth(250);
         naamvak.setMinHeight(30);
 
-        emailvak.setMaxWidth(250);
-        emailvak.setMinHeight(30);
-
         wachtwoordvak.setMaxWidth(250);
         wachtwoordvak.setFont(new Font(10));
         wachtwoordvak.setMinHeight(30);
@@ -73,9 +68,6 @@ public class Registratiescherm extends BorderPane {
         herhaalvak.setMinHeight(30);
         
         naamlabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-
-        emaillabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-        emaillabel.setPadding(new Insets(0, 0, 3, 0));
 
         wachtwoordlabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         wachtwoordlabel.setPadding(new Insets(3, 0,0, 0));
@@ -96,11 +88,11 @@ public class Registratiescherm extends BorderPane {
         hbox__vbox__vbox.setSpacing(30);
         hbox__vbox__vbox.setAlignment(Pos.CENTER);
         
-        vbox_nl_el_wwl_hhl.getChildren().addAll(naamlabel, emaillabel, wachtwoordlabel, herhaallabel,spacelabel);
+        vbox_nl_el_wwl_hhl.getChildren().addAll(naamlabel, wachtwoordlabel, herhaallabel,spacelabel);
         vbox_nl_el_wwl_hhl.setAlignment(Pos.CENTER_LEFT);
         vbox_nl_el_wwl_hhl.setSpacing(22);
 
-        vbox_nv_ev_wwv_hhwwv.getChildren().addAll(naamvak, emailvak, wachtwoordvak, herhaalvak,fouttext, hbox_rg);
+        vbox_nv_ev_wwv_hhwwv.getChildren().addAll(naamvak, wachtwoordvak, herhaalvak,fouttext, hbox_rg);
         vbox_nv_ev_wwv_hhwwv.setAlignment(Pos.CENTER);
         vbox_nv_ev_wwv_hhwwv.setSpacing(15);
         vbox_nv_ev_wwv_hhwwv.setPadding(new Insets(50, 0, 0, 0));
@@ -138,7 +130,6 @@ public class Registratiescherm extends BorderPane {
         registratieknop.setOnAction(event -> {
 
             String naamdatabase = naamvak.getText();
-            String emaildatabase = emailvak.getText();
             String wachtwoorddatabase = wachtwoordvak.getText();
             String herhaalwachtwoorddatabase = herhaalvak.getText();
 
