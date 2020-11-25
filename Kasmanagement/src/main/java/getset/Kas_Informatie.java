@@ -13,7 +13,7 @@ import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class Kas {
+public class Kas_Informatie {
     private Integer kasId;
     private String  kasNaam;
     private String  product;
@@ -51,13 +51,13 @@ public class Kas {
         this.datumTijd = datumTijd;
     }
 
-    public Kas(Integer kasId, String kasNaam, String datumTijd) {
+    public Kas_Informatie(Integer kasId, String kasNaam, String datumTijd) {
         this.kasId = kasId;
         this.kasNaam = kasNaam;
         this.datumTijd = datumTijd;
     }
 
-    public Kas(Integer kasId, String kasNaam, String product, String datumTijd) {
+    public Kas_Informatie(Integer kasId, String kasNaam, String product, String datumTijd) {
         this.kasId = kasId;
         this.kasNaam = kasNaam;
         this.product = product;

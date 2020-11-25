@@ -5,7 +5,7 @@
  */
 package com.bp6.kasmanagement.controller;
 
-import com.bp6.kasmanagement.view.Overzicht;
+import com.bp6.kasmanagement.view.Rootpane;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
@@ -16,13 +16,13 @@ import javafx.stage.Stage;
  *
  * @author laarh
  */
-public class main extends Application {
+public class Main extends Application {
 
     /**
      * @param args the command line arguments
      */
     public void start (Stage mainStage){
-        BorderPane root = new Overzicht();
+        Rootpane root = new Rootpane();
         Scene scene = new Scene(root,1000,1000);
        
         mainStage.setScene(scene);
