@@ -8,6 +8,8 @@ import javafx.scene.layout.BorderPane;
  */
 public class GebruikerScherm extends BorderPane {
     
-    
+    public GebruikerScherm (TopUserBar topUserBar){
+        setTop(topUserBar);
+    }
     
 }

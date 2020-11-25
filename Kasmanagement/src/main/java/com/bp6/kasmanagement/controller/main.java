@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     /**
+     * @param mainStage
      * @param args the command line arguments
      */
     public void start (Stage mainStage){
