@@ -24,18 +24,21 @@ public class ProductenScherm extends BorderPane {
     public ProductenScherm() {
         // Creates Hbox    
         hbox_labels = new HBox();
+        
         // Set Labels    
         productName = new Label("Naam product");
         idealTemperature = new Label("Ideale tempratuur");
         idealHumidity = new Label("Ideale luchtvochtigheid");
         idealLight = new Label("Ideale belichting intensiteit");
         idealGrowth = new Label("Ideale groei tijd");
+        
         // Set Fonts
         productName.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         idealTemperature.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         idealHumidity.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         idealLight.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         idealGrowth.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        
         // Places the labels in the Hbox
         hbox_labels.getChildren().addAll(productName, idealTemperature, idealHumidity, idealLight, idealGrowth);
         this.setLeft(hbox_labels);
