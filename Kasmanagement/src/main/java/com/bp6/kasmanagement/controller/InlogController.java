@@ -24,24 +24,20 @@ public class InlogController {
         try {
             con = DBCPDataSource.getConnection();
             Statement stat1 = con.createStatement();
-            ResultSet result = stat1.executeQuery("select * from gebruiker");
+            ResultSet result = stat1.executeQuery("select gebruikersnaam from gebruiker where gebruikersnaam =  '" + username.getText() + "' and wachtwoord = '" + password.getText() + "'");
 
             while (result.next()) {
                 String strNaam = result.getString("gebruikersnaam");
-                String strWachtwoord = result.getString("wachtwoord");
-                if (username.getText().equals(strNaam) && !username.getText().equals("") && password.getText().equals(strWachtwoord) && !password.getText().equals("")) {
 
-                    rootpane.switchpane(1);
-                    rootpane.setUser(strNaam);
-                    
-                } else {
-                    // error message
-                    username.clear();
-                    password.clear();
-                }
+                rootpane.switchpane(1);
+                rootpane.setUser(strNaam);
+                rootpane.getTopUserBar().getUser().setText(strNaam);
 
             }
-
+            
+            username.clear();
+            password.clear();
+            
         } catch (SQLException se) {
 
             se.printStackTrace();

@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -18,12 +19,13 @@ public class InlogScherm extends BorderPane {
 
     private InlogController inlogController;
     private HBox hbox_username, hbox_password, hbox_inlogbutton;
-    private TextField tf_username, tf_password;
-    
+    private TextField tf_username;
+    private PasswordField tf_password;
+
     public InlogScherm(InlogController inlogController) {
 
         this.inlogController = inlogController;
-        
+
         hbox_username = new HBox();
         hbox_password = new HBox();
         hbox_inlogbutton = new HBox();
@@ -35,6 +37,7 @@ public class InlogScherm extends BorderPane {
         initializeLabels();
         initializeTextfields();
         initializeButtons();
+        initializePasswordFields();
 
         VBox vbox_content = new VBox(hbox_username, hbox_password, hbox_inlogbutton);
         vbox_content.setSpacing(10);
@@ -59,13 +62,19 @@ public class InlogScherm extends BorderPane {
 
     private void initializeTextfields() {
         tf_username = new TextField();
-        tf_password = new TextField();
 
         tf_username.setPrefWidth(200);
-        tf_password.setPrefWidth(200);
 
         hbox_username.getChildren().add(tf_username);
+    }
+
+    private void initializePasswordFields() {
+        tf_password = new PasswordField();
+
+        tf_password.setPrefWidth(200);
+
         hbox_password.getChildren().add(tf_password);
+
     }
 
     private void initializeButtons() {
@@ -73,7 +82,7 @@ public class InlogScherm extends BorderPane {
         btn_login.setPrefWidth(350);
 
         btn_login.setOnAction(e -> {
-            inlogController.login(tf_username,tf_password);
+            inlogController.login(tf_username, tf_password);
         });
 
         hbox_inlogbutton.getChildren().add(btn_login);

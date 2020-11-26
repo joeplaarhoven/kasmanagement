@@ -6,7 +6,7 @@
 package com.bp6.kasmanagement.view.oud;
 
 import com.bp6.kasmanagement.controller.DBCPDataSource;
-import getset.Kas_Informatie;
+import com.bp6.kasmanagement.model.KasInformatie;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,7 +38,7 @@ public class KasBeheren extends BorderPane{
     private Button kasCreateBtn = new Button("Maak nieuwe kas aan");
     private Label kasNaamLbl = new Label("Naam van kas:");
     private TextField kasNaam = new TextField("");
-    private Kas_Informatie kas;
+    private KasInformatie kas;
      private VBox vbox_el_wwl = new VBox(),
             vbox__hbox__hbox = new VBox(),
             vbox_ilv_wwv_hbox_ilk = new VBox();
@@ -58,7 +58,7 @@ public class KasBeheren extends BorderPane{
 
         hbox__vbox__vbox.getChildren().addAll(kasNaamLbl, kasNaam, kasCreateBtn);
 
-        ObservableList<Kas_Informatie> items = FXCollections.observableArrayList();
+        ObservableList<KasInformatie> items = FXCollections.observableArrayList();
 
          kasCreateBtn.setOnAction(event -> {
             java.util.Date dt = new java.util.Date();
@@ -102,7 +102,7 @@ public class KasBeheren extends BorderPane{
                     String strDatum = result1.getString("datum");
                     String strproduct = result1.getString("product");
 
-                    Kas_Informatie kas1 = new Kas_Informatie(strKasNummer, strKasNaam, strproduct, strDatum);
+                    KasInformatie kas1 = new KasInformatie(strKasNummer, strKasNaam, strproduct, strDatum);
                     items.add(kas1);
                 }
 
@@ -121,16 +121,16 @@ public class KasBeheren extends BorderPane{
             table.setEditable(true);
 
         TableColumn kasNaamCol = new TableColumn("Kas naam");
-        kasNaamCol.setCellValueFactory(new PropertyValueFactory<Kas_Informatie,String>("kasNaam")
+        kasNaamCol.setCellValueFactory(new PropertyValueFactory<KasInformatie,String>("kasNaam")
         );
         TableColumn productCol = new TableColumn("Product");
-        productCol.setCellValueFactory(new PropertyValueFactory<Kas_Informatie,String>("product")
+        productCol.setCellValueFactory(new PropertyValueFactory<KasInformatie,String>("product")
         );
         TableColumn datumCol = new TableColumn("Datum");
 
 
 
-        datumCol.setCellValueFactory(new PropertyValueFactory<Kas_Informatie,String>("datumTijd")
+        datumCol.setCellValueFactory(new PropertyValueFactory<KasInformatie,String>("datumTijd")
         );
 
         table.setItems(items);

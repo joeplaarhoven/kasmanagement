@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package getset;
+package com.bp6.kasmanagement.model;
 
 /**
  *
@@ -13,7 +13,7 @@ import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class Kas_Informatie {
+public class KasInformatie {
     private Integer kasId;
     private String  kasNaam;
     private String  product;
@@ -51,19 +51,22 @@ public class Kas_Informatie {
         this.datumTijd = datumTijd;
     }
 
-    public Kas_Informatie(Integer kasId, String kasNaam, String datumTijd) {
+    public KasInformatie(Integer kasId, String kasNaam, String datumTijd) {
         this.kasId = kasId;
         this.kasNaam = kasNaam;
         this.datumTijd = datumTijd;
     }
 
-    public Kas_Informatie(Integer kasId, String kasNaam, String product, String datumTijd) {
+    public KasInformatie(Integer kasId, String kasNaam, String product, String datumTijd) {
         this.kasId = kasId;
         this.kasNaam = kasNaam;
         this.product = product;
         this.datumTijd = datumTijd;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return kasNaam;
+    }
+       
 }
