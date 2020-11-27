@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 
 /**
  *
- * @author Colin
+ * @author Joep
  */
 public class KasInformatieScherm extends BorderPane {
     

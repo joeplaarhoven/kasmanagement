@@ -10,7 +10,7 @@ public class StartScherm extends BorderPane {
 
     private KasInformatieScherm kasInformatieScherm;
     private ProductenScherm productenScherm;
-    // private GebruikersScherm gebruikersScherm;
+    private GebruikersScherm gebruikersScherm;
 
     public StartScherm(TopUserBar topUserBar) {
 
@@ -32,9 +32,8 @@ public class StartScherm extends BorderPane {
                 break;
 
             case 2:
-                // private GebruikersScherm gebruikersScherm;
+                this.setCenter(gebruikersScherm);
                 break;
-
         }
     }
 
