@@ -24,7 +24,7 @@ public class TopUserBarController {
         startscherm.switchpane(1);
     }
 
-    public void users() {
+    public void sensor_Management() {
         startscherm.switchpane(2);
     }
 

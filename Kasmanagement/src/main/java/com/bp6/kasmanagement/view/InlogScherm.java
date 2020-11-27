@@ -21,6 +21,7 @@ public class InlogScherm extends BorderPane {
     private HBox hbox_username, hbox_password, hbox_inlogbutton;
     private TextField tf_username;
     private PasswordField tf_password;
+    private Rootpane rootpane;
 
     public InlogScherm(InlogController inlogController) {
 
@@ -42,7 +43,7 @@ public class InlogScherm extends BorderPane {
         VBox vbox_content = new VBox(hbox_username, hbox_password, hbox_inlogbutton);
         vbox_content.setSpacing(10);
         vbox_content.alignmentProperty().set(Pos.CENTER);
-
+        
         this.setCenter(vbox_content);
     }
 

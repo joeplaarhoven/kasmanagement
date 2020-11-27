@@ -3,8 +3,11 @@ package com.bp6.kasmanagement.view;
 import com.bp6.kasmanagement.controller.InlogController;
 import com.bp6.kasmanagement.controller.TopUserBarController;
 import com.bp6.kasmanagement.model.Gebruiker;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -44,6 +47,8 @@ public class Rootpane extends BorderPane {
         this.setTop(header);
         this.setBottom(footer);
         this.setCenter(inlogscherm);
+        
+        this.setBackground(new Background(new BackgroundFill(Color.web("#FFFFE0"), null, null)));
 
     }
 

@@ -9,6 +9,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -18,12 +20,11 @@ public class Header extends Pane {
 
     private MenuBar mainMenuBar = new MenuBar();
     private Menu choiceBox = new Menu("Menu");
-
     private MenuItem Exit = new MenuItem("Exit");
 
     public Header() {
-    this.setBackground(new Background(new BackgroundFill(Color.web("#8B0000"), null, null)));
-    
+        
+        
         Exit.setOnAction(event -> {
             Platform.exit();
         });
@@ -33,6 +34,8 @@ public class Header extends Pane {
         getChildren().add(new VBox(mainMenuBar));
 
         mainMenuBar.setPrefWidth(3000);
+        
         this.setPrefHeight(100);
+        this.setBackground(new Background(new BackgroundFill(Color.web("#8B0000"), null, null)));
     }
 }

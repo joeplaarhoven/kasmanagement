@@ -16,7 +16,7 @@ import javafx.scene.text.FontWeight;
  */
 public class TopUserBar extends HBox {
     
-    Button products, users, logout;
+    Button products, sensorManagement, logout;
     
     KasInformatie selecteer_Kas;
     ComboBox<KasInformatie> cb_kasinformatie;
@@ -24,8 +24,9 @@ public class TopUserBar extends HBox {
     Label user;
 
     public TopUserBar(TopUserBarController topUserBarController) {
+        
         cb_kasinformatie = new ComboBox<> ();
-        users = new Button("Gebruikers");
+        sensorManagement = new Button("Sensormanagement");
         products = new Button("Producten");
         logout = new Button("Uitloggen");
                 
@@ -39,7 +40,8 @@ public class TopUserBar extends HBox {
         
         });
         
-        users.setOnAction(e -> {
+        sensorManagement.setOnAction(e -> {
+            topUserBarController.sensor_Management();
             
         });
         
@@ -59,21 +61,21 @@ public class TopUserBar extends HBox {
         cb_kasinformatie.setMaxWidth(200);
         cb_kasinformatie.setMinWidth(200);
         user.setPrefWidth(200);
-        users.setPrefWidth(200);
+        sensorManagement.setPrefWidth(200);
         products.setPrefWidth(200);
         logout.setPrefWidth(200);
         
         // Sets height
         cb_kasinformatie.setPrefHeight(45);
         user.setPrefHeight(45);
-        users.setPrefHeight(45);
+        sensorManagement.setPrefHeight(45);
         products.setPrefHeight(45);
         logout.setPrefHeight(45);
                 
         // Sets padding
         cb_kasinformatie.setPadding(new Insets(5, 5, 5, 5));
         user.setPadding(new Insets(5, 5, 5, 5));
-        users.setPadding(new Insets(5, 5, 5, 5));
+        sensorManagement.setPadding(new Insets(5, 5, 5, 5));
         products.setPadding(new Insets(5, 5, 5, 5));
         logout.setPadding(new Insets(5, 5, 5, 5));
         
@@ -81,7 +83,7 @@ public class TopUserBar extends HBox {
         this.setSpacing(20);
         this.setPadding(new Insets (5, 5, 5, 5));
         
-        this.getChildren().addAll(cb_kasinformatie, products, users, logout, user);
+        this.getChildren().addAll(cb_kasinformatie, products, sensorManagement, logout, user);
     }
 
     public Label getUser() {
