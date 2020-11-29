@@ -208,7 +208,6 @@ public class SensorManagementScherm extends BorderPane {
             
         });
         
-        
         // set Center of the BorderPane
         this.setCenter(Gridpane_Hoofdscherm);
         
@@ -219,6 +218,6 @@ public class SensorManagementScherm extends BorderPane {
         
         hbox_Actuatoren.setVisible(true);
     }
-    
+   
     
 }
