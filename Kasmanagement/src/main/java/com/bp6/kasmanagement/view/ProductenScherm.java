@@ -3,6 +3,7 @@ package com.bp6.kasmanagement.view;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -17,90 +18,98 @@ import javafx.scene.text.FontWeight;
 public class ProductenScherm extends BorderPane {
 
     private GridPane main_gridpane;
-    private HBox hbox_labels, hbox_textfields;
+    private HBox hbox_labelProducts, hbox_textfieldProducts, hbox_labelAllProducts, hbox_listviews;
+    private ListView lv_Name, lv_Temperature, lv_Humidity, lv_SoilMoisture, lv_Light, lv_Growth;
 
-    Label lb_productName, lb_idealTemperature, lb_idealHumidity, lb_idealLight, lb_idealGrowth;
-    TextField tf_productName, tf_idealTemperature, tf_idealHumidity, tf_idealLight, tf_idealGrowth;
+    Label lb_productName, lb_Temperature, lb_Humidity, lb_SoilMoisture, lb_Light, lb_Growth, lb_productListLabel;
+    TextField tf_productName, tf_Temperature, tf_Humidity, tf_SoilMoisture, tf_Light, tf_Growth;
     Button btn_addProduct;
     
     public ProductenScherm() {
-        // Creates Hbox    
-        hbox_labels = new HBox();
-        hbox_textfields = new HBox();
-
         // Creates Gridpane
         main_gridpane = new GridPane();
 
+        // Creates Hbox    
+        hbox_labelProducts = new HBox();
+        hbox_textfieldProducts = new HBox();
+        hbox_labelAllProducts = new HBox();
+        hbox_listviews = new HBox();
+                
+        // Creates Listviews
+        lv_Name = new ListView();
+        lv_Temperature = new ListView();
+        lv_Humidity = new ListView();
+        lv_SoilMoisture = new ListView();
+        lv_Light = new ListView();
+        lv_Growth = new ListView();
+                        
         // Set Labels    
         lb_productName = new Label("Naam product");
-        lb_idealTemperature = new Label("Tempratuur");
-        lb_idealHumidity = new Label("Luchtvochtigheid");
-        lb_idealLight = new Label("Belichting (lux)");
-        lb_idealGrowth = new Label("Groei tijd");
-
+        lb_Temperature = new Label("Temperatuur");
+        lb_Humidity = new Label("Luchtvochtigheid");
+        lb_SoilMoisture = new Label("Grond vochtigheid");
+        lb_Light = new Label("Belichting (lux)");
+        lb_Growth = new Label("Groei tijd");
+        lb_productListLabel = new Label("Producten lijst");
+        
         // Sets textfields
         tf_productName = new TextField();
-        tf_idealTemperature = new TextField();
-        tf_idealHumidity = new TextField();
-        tf_idealLight = new TextField();
-        tf_idealGrowth = new TextField();
+        tf_Temperature = new TextField();
+        tf_Humidity = new TextField();
+        tf_SoilMoisture = new TextField();
+        tf_Light = new TextField();
+        tf_Growth = new TextField();
         
         // Sets button
         btn_addProduct = new Button("Product Toevoegen");
 
         // Set Fonts
         lb_productName.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-        lb_idealTemperature.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-        lb_idealHumidity.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-        lb_idealLight.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-        lb_idealGrowth.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        lb_Temperature.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        lb_Humidity.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        lb_SoilMoisture.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        lb_Light.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        lb_Growth.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
 
         // Set witdth labels
         lb_productName.setPrefWidth(150);
-        lb_idealTemperature.setPrefWidth(150);
-        lb_idealHumidity.setPrefWidth(200);
-        lb_idealLight.setPrefWidth(150);
-        lb_idealGrowth.setPrefWidth(150);
+        lb_Temperature.setPrefWidth(150);
+        lb_Humidity.setPrefWidth(200);
+        lb_SoilMoisture.setPrefWidth(200);
+        lb_Light.setPrefWidth(150);
+        lb_Growth.setPrefWidth(150);
 
         // Sets width textfields
         tf_productName.setPrefWidth(150);
-        tf_idealTemperature.setPrefWidth(150);
-        tf_idealHumidity.setPrefWidth(200);
-        tf_idealLight.setPrefWidth(150);
-        tf_idealGrowth.setPrefWidth(150);
+        tf_Temperature.setPrefWidth(150);
+        tf_Humidity.setPrefWidth(200);
+        tf_SoilMoisture.setPrefWidth(200);
+        tf_Light.setPrefWidth(150);
+        tf_Growth.setPrefWidth(150);
         
         // Sets width button
         btn_addProduct.setPrefWidth(150);
-
-//        // set Padding labels
-//        lb_productName.setPadding(new Insets(5, 5, 5, 5));
-//        lb_idealTemperature.setPadding(new Insets(5, 5, 5, 5));
-//        lb_idealHumidity.setPadding(new Insets(5, 5, 5, 5));
-//        lb_idealLight.setPadding(new Insets(5, 5, 5, 5));
-//        lb_idealGrowth.setPadding(new Insets(5, 5, 5, 5));
-
-//        // sets Padding textfields
-//        tf_productName.setPadding(new Insets(5, 5, 5, 5));
-//        tf_idealTemperature.setPadding(new Insets(5, 5, 5, 5));
-//        tf_idealHumidity.setPadding(new Insets(5, 5, 5, 5));
-//        tf_idealLight.setPadding(new Insets(5, 5, 5, 5));
-//        tf_idealGrowth.setPadding(new Insets(5, 5, 5, 5));
         
         // Sets padding hbox
-        hbox_labels.setPadding(new Insets(5, 5, 5, 5));
-        hbox_textfields.setPadding(new Insets(5, 5, 5, 5));
+        hbox_labelProducts.setPadding(new Insets(5, 5, 5, 5));
+        hbox_textfieldProducts.setPadding(new Insets(5, 5, 5, 5));
         
         // Sets spacing hbox
-        hbox_labels.setSpacing(10);
-        hbox_textfields.setSpacing(10);
+        hbox_labelProducts.setSpacing(10);
+        hbox_textfieldProducts.setSpacing(10);
         
         // Places the labels in the Hbox
-        hbox_labels.getChildren().addAll(lb_productName, lb_idealTemperature, lb_idealHumidity, lb_idealLight, lb_idealGrowth);
-        hbox_textfields.getChildren().addAll(tf_productName, tf_idealTemperature, tf_idealHumidity, tf_idealLight, tf_idealGrowth, btn_addProduct);
-
+        hbox_labelProducts.getChildren().addAll(lb_productName, lb_Temperature, lb_Humidity, lb_SoilMoisture, lb_Light, lb_Growth);
+        hbox_textfieldProducts.getChildren().addAll(tf_productName, tf_Temperature, tf_Humidity, tf_SoilMoisture, tf_Light, tf_Growth, btn_addProduct);
+        hbox_labelAllProducts.getChildren().addAll(lb_productListLabel);
+        hbox_listviews.getChildren().addAll(lv_Name, lv_Temperature, lv_Humidity, lv_SoilMoisture, lv_Light, lv_Growth);
+        
         // Position in gridpane
-        main_gridpane.add(hbox_labels, 0, 1);
-        main_gridpane.add(hbox_textfields, 0, 2);
+        main_gridpane.add(hbox_labelProducts, 0, 1);
+        main_gridpane.add(hbox_textfieldProducts, 0, 2);
+        main_gridpane.add(hbox_labelAllProducts, 0, 3);
+        main_gridpane.add(hbox_listviews, 0, 4);
+        
         this.setLeft(main_gridpane);
     }
 }
