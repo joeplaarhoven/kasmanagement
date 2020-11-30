@@ -16,16 +16,16 @@ public class TopUserBarController {
         this.rootpane = rootpane;
     }
 
-    public void kas_Informatie (){
-        startscherm.switchpane(0);
+    public void kas_Informatie (String user){
+        startscherm.switchpane(0, user);
     }
     
-    public void products() {
-        startscherm.switchpane(1);
+    public void products(String user) {
+        startscherm.switchpane(1, user);
     }
 
-    public void users() {
-        startscherm.switchpane(2);
+    public void users(String user) {
+        startscherm.switchpane(2, user);
     }
 
     public void logout() {

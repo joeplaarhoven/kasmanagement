@@ -19,9 +19,10 @@ public class Rootpane extends BorderPane {
 
     private final Pane header;
     private final BorderPane footer;
-    private final InlogScherm inlogscherm;
-    private final StartScherm startscherm;
+    private InlogScherm inlogscherm;
+    private StartScherm startscherm;
     private final BorderPane productenScherm;
+    String userString;
 
     private Gebruiker user;
 
@@ -34,10 +35,11 @@ public class Rootpane extends BorderPane {
 
         header = new Header();
         footer = new Footer();
-
+        
         inlogscherm = new InlogScherm(inlogController);
+        
         startscherm = new StartScherm(topUserBar);
-
+        
         productenScherm = new ProductenScherm();
         topUserBarController.setStartscherm(startscherm);
 
@@ -48,6 +50,7 @@ public class Rootpane extends BorderPane {
     }
 
     public void setUser(String username) {
+        userString = username;
         if (user == null) {
             user = new Gebruiker(username);
         } else {
@@ -60,10 +63,12 @@ public class Rootpane extends BorderPane {
 
         switch (value) {
             case 0:
+                 
                 this.setCenter(inlogscherm);
                 break;
 
             case 1:
+               
                 this.setCenter(startscherm);
                 break;
         }
