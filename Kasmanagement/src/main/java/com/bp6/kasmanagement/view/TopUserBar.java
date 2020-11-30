@@ -36,7 +36,7 @@ public class TopUserBar extends HBox {
         });
 
         sensorManagement.setOnAction(e -> {
-            topUserBarController.sensor_Management();
+            topUserBarController.sensor_Management(user.getText());
 
         });
 

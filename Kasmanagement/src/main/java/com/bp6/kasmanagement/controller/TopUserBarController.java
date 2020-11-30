@@ -19,13 +19,17 @@ public class TopUserBarController {
     public void users(String user) {
         startscherm.switchpane(2, user);
     }
+    
+    public void kas_Informatie (String user){
+        startscherm.switchpane(0, user);
+    }
 
     public void products(String user) {
         startscherm.switchpane(1, user);
     }
 
-    public void sensor_Management() {
-        startscherm.switchpane(2);
+    public void sensor_Management(String user) {
+        startscherm.switchpane(2, user);
     }
 
     public void logout() {
