@@ -11,17 +11,17 @@ public class TopUserBarController {
 
     private Rootpane rootpane;
     private StartScherm startscherm;
-    
+
     public TopUserBarController(Rootpane rootpane) {
         this.rootpane = rootpane;
     }
 
-    public void kas_Informatie (){
-        startscherm.switchpane(0);
+    public void users(String user) {
+        startscherm.switchpane(2, user);
     }
-    
-    public void products() {
-        startscherm.switchpane(1);
+
+    public void products(String user) {
+        startscherm.switchpane(1, user);
     }
 
     public void sensor_Management() {
@@ -39,5 +39,5 @@ public class TopUserBarController {
     public void setStartscherm(StartScherm startscherm) {
         this.startscherm = startscherm;
     }
-    
+
 }

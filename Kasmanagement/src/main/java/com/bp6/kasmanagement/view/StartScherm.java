@@ -22,11 +22,15 @@ public class StartScherm extends BorderPane {
         setTop(topUserBar);
     }
 
-    public void switchpane(int value) {
+    public void switchpane(int value, String user) {
 
         switch (value) {
             case 0:
+                
+                kasInformatieScherm.lblUser.setText(user);
+                kasInformatieScherm.start();
                 this.setCenter(kasInformatieScherm);
+                
                 break;
 
             case 1:
