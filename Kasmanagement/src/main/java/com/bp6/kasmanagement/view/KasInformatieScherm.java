@@ -142,6 +142,11 @@ public class KasInformatieScherm extends BorderPane {
         // Set witdth labels
         lbl_kasName.setPrefWidth(150);
         lbl_product.setPrefWidth(150);
+        
+        // Set witdth columns
+        kasNaamCol.setPrefWidth(160);
+        productCol.setPrefWidth(160);
+        datumCol.setPrefWidth(160);
 
         // Sets width textfields
         txt_kasName.setPrefWidth(150);
