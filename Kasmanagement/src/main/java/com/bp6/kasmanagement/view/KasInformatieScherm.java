@@ -8,6 +8,7 @@ package com.bp6.kasmanagement.view;
 import com.bp6.kasmanagement.controller.DBCPDataSource;
 import com.bp6.kasmanagement.model.Gebruiker;
 import com.bp6.kasmanagement.model.KasInformatie;
+import static java.lang.System.in;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,7 +45,7 @@ public class KasInformatieScherm extends BorderPane {
     TextField txt_kasName;
     ComboBox cb_product;
     Button btn_addKas;
-    TableView table;
+    TableView<KasInformatie> table;
 
     
     public KasInformatieScherm() {
@@ -170,11 +171,17 @@ public class KasInformatieScherm extends BorderPane {
         this.setLeft(main_gridpane);
         
         table.setOnMouseClicked((MouseEvent event) -> {
+            
             if(event.getButton().equals(MouseButton.PRIMARY)){
+                String selectedItem = table.getSelectionModel().getSelectedItem().toString();
+                items.stream().filter((kas) -> (selectedItem.equals(kas.getKasNaam()))).forEachOrdered((kas) -> {
+                    cb_product.setValue(kas.getProduct());
+                }); 
+                
+
                 txt_kasName.setText(table.getSelectionModel().getSelectedItem().toString());
                 btn_addKas.setOnAction(e -> {
             
-                    System.out.print(cb_product.getValue());
                     table.getItems().clear();
                     java.util.Date dt = new java.util.Date();
 
@@ -187,7 +194,7 @@ public class KasInformatieScherm extends BorderPane {
 
                         con2 = DBCPDataSource.getConnection();
                         Statement stat = con2.createStatement();
-                        if(cb_product.getValue().equals(null)){
+                        if(cb_product.getValue() == null){
                             boolean result = stat.execute("UPDATE kas\n" +
                                 "SET kasNaam = '" + txt_kasName.getText() + "'\n" +
                                 "WHERE kasNaam = '" + txt_kasName.getText() + "'");
@@ -237,7 +244,6 @@ public class KasInformatieScherm extends BorderPane {
 
         btn_addKas.setOnAction(e -> {
             
-            System.out.print(cb_product.getValue());
             table.getItems().clear();
             java.util.Date dt = new java.util.Date();
 
