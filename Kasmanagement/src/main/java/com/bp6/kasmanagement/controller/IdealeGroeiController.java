@@ -2,6 +2,7 @@ package com.bp6.kasmanagement.controller;
 
 import com.bp6.kasmanagement.model.IdealeGroei;
 import com.bp6.kasmanagement.view.IdealeGroeiScherm;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -75,6 +76,13 @@ public class IdealeGroeiController {
             stat2.setInt(7, strGrowth);
   
             stat2.executeUpdate();
+            
+        } catch (MySQLIntegrityConstraintViolationException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Een van deze waarde bestaat al");
+            alert.setContentText("Probeer het nog een keer");
+            alert.showAndWait();           
             
         } catch (SQLException se) {
 
