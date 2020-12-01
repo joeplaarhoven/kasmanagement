@@ -38,7 +38,7 @@ public class Rootpane extends BorderPane {
         inlogscherm = new InlogScherm(inlogController);
         startscherm = new StartScherm(topUserBar);
 
-        productenScherm = new ProductenScherm();
+        productenScherm = new IdealeGroeiScherm();
         topUserBarController.setStartscherm(startscherm);
 
         this.setTop(header);

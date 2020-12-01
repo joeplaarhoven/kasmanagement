@@ -9,13 +9,13 @@ import javafx.scene.layout.BorderPane;
 public class StartScherm extends BorderPane {
 
     private KasInformatieScherm kasInformatieScherm;
-    private ProductenScherm productenScherm;
+    private IdealeGroeiScherm productenScherm;
     private GebruikersScherm gebruikersScherm;
 
     public StartScherm(TopUserBar topUserBar) {
 
         kasInformatieScherm = new KasInformatieScherm();
-        productenScherm = new ProductenScherm();
+        productenScherm = new IdealeGroeiScherm();
 
         setTop(topUserBar);
     }

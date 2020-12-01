@@ -9,7 +9,7 @@ import javafx.stage.Stage;
  *
  * @author laarh
  */
-public class main extends Application {
+public class Main extends Application {
 
     /**
      * @param mainStage
@@ -17,7 +17,7 @@ public class main extends Application {
      */
     public void start (Stage mainStage){
         Rootpane root = new Rootpane();
-        Scene scene = new Scene(root,1250,1000);
+        Scene scene = new Scene(root,1450,1000);
        
         mainStage.setScene(scene);
         mainStage.setTitle("Kasmonitoringsysteem");
