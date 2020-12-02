@@ -38,24 +38,24 @@ public class IdealeGroeiController {
     // Adds data to the database
     public void setIdealeGroeiObject() {
         Connection con = null;
-        
+
         String strProductName = null;
         Integer strTemperature = null;
         Integer strHumidity = null;
         Integer strSoilMoisture = null;
         Integer strLight = null;
-        Integer strMaxWind = null;   
+        Integer strMaxWind = null;
         Integer strGrowth = null;
-                
+
         try {
-        strProductName = idealeGroeiScherm.getTf_productName().getText();
-        strTemperature = Integer.valueOf(idealeGroeiScherm.getTf_Temperature().getText());
-        strHumidity = Integer.valueOf(idealeGroeiScherm.getTf_Humidity().getText());
-        strSoilMoisture = Integer.valueOf(idealeGroeiScherm.getTf_SoilMoisture().getText());
-        strLight = Integer.valueOf(idealeGroeiScherm.getTf_Light().getText());
-        strMaxWind = Integer.valueOf(idealeGroeiScherm.getTf_MaxWind().getText());
-        strGrowth = Integer.valueOf(idealeGroeiScherm.getTf_Growth().getText());
-        } catch (Exception se){
+            strProductName = idealeGroeiScherm.getTf_productName().getText();
+            strTemperature = Integer.valueOf(idealeGroeiScherm.getTf_Temperature().getText());
+            strHumidity = Integer.valueOf(idealeGroeiScherm.getTf_Humidity().getText());
+            strSoilMoisture = Integer.valueOf(idealeGroeiScherm.getTf_SoilMoisture().getText());
+            strLight = Integer.valueOf(idealeGroeiScherm.getTf_Light().getText());
+            strMaxWind = Integer.valueOf(idealeGroeiScherm.getTf_MaxWind().getText());
+            strGrowth = Integer.valueOf(idealeGroeiScherm.getTf_Growth().getText());
+        } catch (Exception se) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Er is geen juiste waarde in gevuld");
@@ -63,7 +63,7 @@ public class IdealeGroeiController {
             alert.showAndWait();
             return;
         }
-        
+
         try {
             con = DBCPDataSource.getConnection();
             PreparedStatement stat2 = con.prepareStatement("INSERT INTO `kasmanagement`.`idealegroei` (`product`, `tempIdeaal`, `vochtIdeaal`, `windMax`, `lichtIdeaal`, `bodemVochtIdeaal`, `groeiTijd`) VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -74,16 +74,16 @@ public class IdealeGroeiController {
             stat2.setInt(5, strLight);
             stat2.setInt(6, strMaxWind);
             stat2.setInt(7, strGrowth);
-  
+
             stat2.executeUpdate();
-            
+
         } catch (MySQLIntegrityConstraintViolationException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Een van deze waarde bestaat al");
             alert.setContentText("Probeer het nog een keer");
-            alert.showAndWait();           
-            
+            alert.showAndWait();
+
         } catch (SQLException se) {
 
             se.printStackTrace();
