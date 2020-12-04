@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- *
+ * 
  * @author laarh
  */
 public class main extends Application {
@@ -17,7 +17,7 @@ public class main extends Application {
      */
     public void start (Stage mainStage){
         Rootpane root = new Rootpane();
-        Scene scene = new Scene(root,1200,1000);
+        Scene scene = new Scene(root,1450,1000);
        
         mainStage.setScene(scene);
         mainStage.setTitle("Kasmonitoringsysteem");

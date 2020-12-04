@@ -38,18 +38,18 @@ public class Rootpane extends BorderPane {
 
         header = new Header();
         footer = new Footer();
-        
+
         inlogscherm = new InlogScherm(inlogController);
-        
+
         startscherm = new StartScherm(topUserBar);
-        
-        productenScherm = new ProductenScherm();
+
+        productenScherm = new IdealeGroeiScherm();
         topUserBarController.setStartscherm(startscherm);
 
         this.setTop(header);
         this.setBottom(footer);
         this.setCenter(inlogscherm);
-        
+
         this.setBackground(new Background(new BackgroundFill(Color.web("#FFFFE0"), null, null)));
 
     }
@@ -68,12 +68,12 @@ public class Rootpane extends BorderPane {
 
         switch (value) {
             case 0:
-                 
+
                 this.setCenter(inlogscherm);
                 break;
 
             case 1:
-               
+
                 this.setCenter(startscherm);
                 break;
         }
