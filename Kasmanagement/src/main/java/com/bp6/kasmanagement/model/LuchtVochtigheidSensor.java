@@ -9,18 +9,19 @@ package com.bp6.kasmanagement.model;
  *
  * @author dahir
  */
-public class WindSensor {
+public class LuchtVochtigheidSensor {
+ 
     private String locatie;
     private String type;
-    private String windInput;
+    private String luchtVochtigheidInput;
     private String datumTijd;
     
-     public WindSensor(String locatie,String type, String windInput, String datumTijd){
-        
+    public LuchtVochtigheidSensor(String locatie,String type, String luchtVochtigheidInput, String datumTijd){
         this.locatie = locatie;
         this.type = type;
-        this.windInput = windInput;
+        this.luchtVochtigheidInput = luchtVochtigheidInput;
         this.datumTijd = datumTijd;
+    
     }
 
     public String getLocatie() {
@@ -39,12 +40,12 @@ public class WindSensor {
         this.type = type;
     }
 
-    public String getWindInput() {
-        return windInput;
+    public String getLuchtVochtigheidInput() {
+        return luchtVochtigheidInput;
     }
 
-    public void setWindInput(String windInput) {
-        this.windInput = windInput;
+    public void setLuchtVochtigheidInput(String luchtVochtigheidInput) {
+        this.luchtVochtigheidInput = luchtVochtigheidInput;
     }
 
     public String getDatumTijd() {
@@ -54,6 +55,6 @@ public class WindSensor {
     public void setDatumTijd(String datumTijd) {
         this.datumTijd = datumTijd;
     }
-     
+    
+    
 }
-
