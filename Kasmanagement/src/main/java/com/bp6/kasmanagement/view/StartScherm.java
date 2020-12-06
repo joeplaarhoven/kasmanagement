@@ -9,14 +9,14 @@ import javafx.scene.layout.BorderPane;
 public class StartScherm extends BorderPane {
 
     private KasInformatieScherm kasInformatieScherm;
-    private ProductenScherm productenScherm;
+    private IdealeGroeiScherm productenScherm;
+    private GebruikersScherm gebruikersScherm;
     private SensorManagementScherm sensorManagementScherm;
-    
 
     public StartScherm(TopUserBar topUserBar) {
 
         kasInformatieScherm = new KasInformatieScherm();
-        productenScherm = new ProductenScherm();
+        productenScherm = new IdealeGroeiScherm();
         sensorManagementScherm = new SensorManagementScherm();
 
         setTop(topUserBar);
@@ -26,11 +26,11 @@ public class StartScherm extends BorderPane {
 
         switch (value) {
             case 0:
-                
+
                 kasInformatieScherm.lblUser.setText(user);
                 kasInformatieScherm.start();
                 this.setCenter(kasInformatieScherm);
-                
+
                 break;
 
             case 1:

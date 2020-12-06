@@ -6,6 +6,7 @@
 package com.bp6.kasmanagement.view;
 
 import com.bp6.kasmanagement.controller.DBCPDataSource;
+import com.bp6.kasmanagement.controller.KasInformatieController;
 import com.bp6.kasmanagement.model.Gebruiker;
 import com.bp6.kasmanagement.model.KasInformatie;
 import static java.lang.System.in;
@@ -40,12 +41,15 @@ import javafx.scene.text.FontWeight;
 public class KasInformatieScherm extends BorderPane {
     Label lblUser;
     private GridPane main_gridpane;
-    private HBox hbox_labels, hbox_textfields;
+    private HBox hbox_labels, hbox_textfields, hbox_crud;
     Label lbl_kasName, lbl_product;
     TextField txt_kasName;
     ComboBox cb_product;
-    Button btn_addKas;
+    Button btn_addKas, btn_deselect, btn_delete;
     TableView<KasInformatie> table;
+    KasInformatieController kasInfCont;
+    String selectedProduct;
+    ObservableList<KasInformatie> items;
 
     
     public KasInformatieScherm() {
@@ -53,54 +57,14 @@ public class KasInformatieScherm extends BorderPane {
     }
     
     public void start(){
+        selectedProduct = new String();
+        kasInfCont = new KasInformatieController();
+    
         
         table = new TableView();
-        ObservableList<KasInformatie> items = FXCollections.observableArrayList();
-        ObservableList<String> itemsProduct = FXCollections.observableArrayList();
+       
         
-        Connection con1 = null;
-            try {
-
-                con1 = DBCPDataSource.getConnection();
-                Statement stat = con1.createStatement();
-                
-                ResultSet result1 = stat.executeQuery("SELECT *\n" +
-                        "FROM kas\n" +
-                        "LEFT JOIN gebruikerKas\n" +
-                        "ON kas.kasNummer = gebruikerKas.kasNummer\n" +
-                        "WHERE gebruikersNaam = '" + lblUser.getText() + "'");
-                
-                 
-                while(result1.next()){
-                    String strKasNaam= result1.getString("kasNaam");
-                    Integer strKasNummer = result1.getInt("kasNummer");
-                    String strDatum = result1.getString("datum");
-                    String strproduct = result1.getString("product");
-
-                    KasInformatie kas1 = new KasInformatie(strKasNummer, strKasNaam, strproduct, strDatum);
-                    items.add(kas1);
-                }
-                
-                ResultSet resultProduct = stat.executeQuery("SELECT * FROM idealegroei");
-                  while(resultProduct.next()){
-                    String strProductNaam= resultProduct.getString("product");
-
-                   
-                    itemsProduct.add(strProductNaam);
-                }
-                 
-
-
-
-            } catch (SQLException se) {
-                se.printStackTrace();
-            } finally {
-                try {
-                    con1.close();
-                } catch (Exception e) {
-
-                }
-            }
+        items = kasInfCont.getKasInfo(lblUser.getText());
             
            
             
@@ -117,6 +81,7 @@ public class KasInformatieScherm extends BorderPane {
         // Creates Hbox    
         hbox_labels = new HBox();
         hbox_textfields = new HBox();
+        hbox_crud = new HBox();
 
         // Creates Gridpane
         main_gridpane = new GridPane();
@@ -129,11 +94,13 @@ public class KasInformatieScherm extends BorderPane {
         txt_kasName = new TextField();
         
         //sets combobox
-        cb_product = new ComboBox(itemsProduct);
+        cb_product = new ComboBox(kasInfCont.getProductName());
         cb_product.setPromptText("Select Product");
         
         // Sets button
         btn_addKas = new Button("Kas Toevoegen");
+        btn_deselect = new Button("Deselecteer");
+        btn_delete = new Button("Verwijder rij");
 
         // Set Fonts
         lbl_kasName.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
@@ -159,162 +126,81 @@ public class KasInformatieScherm extends BorderPane {
         // Sets padding hbox
         hbox_labels.setPadding(new Insets(5, 5, 5, 5));
         hbox_textfields.setPadding(new Insets(5, 5, 5, 5));
+        hbox_crud.setPadding(new Insets(5, 5, 5, 5));
         
         // Sets spacing hbox
         hbox_labels.setSpacing(10);
         hbox_textfields.setSpacing(10);
-        
+        hbox_crud.setSpacing(10);
         
         // Places the labels in the Hbox
         hbox_labels.getChildren().addAll(lbl_kasName, lbl_product);
         hbox_textfields.getChildren().addAll(txt_kasName, cb_product, btn_addKas);
-
+        hbox_crud.getChildren().addAll(btn_deselect, btn_delete);
+        
         // Position in gridpane
         main_gridpane.add(hbox_labels, 0, 1);
         main_gridpane.add(hbox_textfields, 0, 2);
-        main_gridpane.add(table, 0, 3);
+        main_gridpane.add(hbox_crud, 0, 3);
+        main_gridpane.add(table, 0, 4);
+        
         this.setLeft(main_gridpane);
+        
+        
+        
         
         table.setOnMouseClicked((MouseEvent event) -> {
             
             if(event.getButton().equals(MouseButton.PRIMARY)){
+                btn_addKas.setText("Update kas");
+                
                 String selectedItem = table.getSelectionModel().getSelectedItem().toString();
                 items.stream().filter((kas) -> (selectedItem.equals(kas.getKasNaam()))).forEachOrdered((kas) -> {
                     cb_product.setValue(kas.getProduct());
                 }); 
                 
+                
 
                 txt_kasName.setText(table.getSelectionModel().getSelectedItem().toString());
                 btn_addKas.setOnAction(e -> {
             
-                    table.getItems().clear();
-                    java.util.Date dt = new java.util.Date();
+                
+                kasInfCont.updateKas(cb_product.getValue().toString(),  txt_kasName.getText(), table.getSelectionModel().getSelectedItem().toString());
+                table.getItems().clear();
+                table.getSelectionModel().clearSelection();  
+                cb_product.setValue(null);
+                txt_kasName.setText("");
+                items = kasInfCont.getKasInfo(lblUser.getText());
+                table.setItems(items);
+                table.refresh();
 
-                    java.text.SimpleDateFormat sdf =
-                         new java.text.SimpleDateFormat("yyyy-MM-dd");
-
-                    String currentTime = sdf.format(dt);
-                    Connection con2 = null;
-                    try {
-
-                        con2 = DBCPDataSource.getConnection();
-                        Statement stat = con2.createStatement();
-                        if(cb_product.getValue() == null){
-                            boolean result = stat.execute("UPDATE kas\n" +
-                                "SET kasNaam = '" + txt_kasName.getText() + "'\n" +
-                                "WHERE kasNaam = '" + txt_kasName.getText() + "'");
-                            
-
-                        }
-                        else {
-                            boolean result = stat.execute("UPDATE kas\n" +
-                                "SET product = '"+cb_product.getValue()+"', datum = '"+currentTime+"', kasNaam = '" + txt_kasName.getText() + "'\n" +
-                                "WHERE kasNaam = '" + txt_kasName.getText() + "'");
-                            
-
-                        }
-
-
-                        ResultSet result1 = stat.executeQuery("SELECT *\n" +
-                                "FROM kas\n" +
-                                "LEFT JOIN gebruikerKas\n" +
-                                "ON kas.kasNummer = gebruikerKas.kasNummer\n" +
-                                "WHERE gebruikersNaam = '" + lblUser.getText() + "'");
-                        while(result1.next()){
-                            String strKasNaam= result1.getString("kasNaam");
-                            Integer strKasNummer = result1.getInt("kasNummer");
-                            String strDatum = result1.getString("datum");
-                            String strproduct = result1.getString("product");
-
-                            KasInformatie kas1 = new KasInformatie(strKasNummer, strKasNaam, strproduct, strDatum);
-
-                            items.add(kas1);
-                        }
-                        table.refresh();
-
-
-
-                    } catch (SQLException se) {
-                        se.printStackTrace();
-                    } finally {
-                        try {
-                            con2.close();
-                        } catch (SQLException SQLe) {
-
-                        }
-                    }
                 });
             }
         });
+        
+        btn_deselect.setOnAction(e -> {
+            table.getSelectionModel().clearSelection();   
+            btn_addKas.setText("Kas Toevoegen");
+            cb_product.setValue(null);
+            txt_kasName.setText("");
+        });
+        
+        btn_delete.setOnAction(e -> {
+            kasInfCont.deleteKas(txt_kasName.getText());
+            table.getItems().clear();
+            items = kasInfCont.getKasInfo(lblUser.getText());
+            table.setItems(items);
+            table.refresh();
+
+                
+        });
 
         btn_addKas.setOnAction(e -> {
-            
+            kasInfCont.createKas(cb_product.getValue().toString(), txt_kasName.getText(), lblUser.getText());
             table.getItems().clear();
-            java.util.Date dt = new java.util.Date();
-
-            java.text.SimpleDateFormat sdf =
-                 new java.text.SimpleDateFormat("yyyy-MM-dd");
-
-            String currentTime = sdf.format(dt);
-            Connection con2 = null;
-            try {
-
-                con2 = DBCPDataSource.getConnection();
-                Statement stat = con2.createStatement();
-                if(cb_product.getValue().equals(null)){
-                    boolean result = stat.execute("INSERT INTO kas (kasNaam, datum) VALUES('" + txt_kasName.getText()+ "', '"+currentTime+"')");
-                    ResultSet resultKasNummer = stat.executeQuery("SELECT kasNummer FROM kas WHERE kasNaam = '"+ txt_kasName.getText() +"'");
-                    Integer kasNummer;
-                    if(resultKasNummer.next())
-                    {
-                        kasNummer= resultKasNummer.getInt("kasNummer");
-                        
-                        boolean result1 = stat.execute("INSERT INTO gebruikerkas VALUES(" + kasNummer + ", '"+ lblUser.getText() +"')");
-                    }
-                    
-                }
-                else {
-                    boolean result = stat.execute("INSERT INTO kas (kasNaam, product, datum) VALUES('" + txt_kasName.getText()+ "', '"+ cb_product.getValue()+ "', '"+currentTime+"')");
-                    ResultSet resultKasNummer = stat.executeQuery("SELECT kasNummer FROM kas WHERE kasNaam = '"+ txt_kasName.getText() +"'");
-                    Integer kasNummer;
-                    if(resultKasNummer.next())
-                    {
-                        kasNummer= resultKasNummer.getInt("kasNummer");
-                        
-                        boolean result1 = stat.execute("INSERT INTO gebruikerkas VALUES(" + kasNummer + ", '"+ lblUser.getText() +"')");
-                    }
-                    
-                }
-                
-
-                ResultSet result1 = stat.executeQuery("SELECT *\n" +
-                        "FROM kas\n" +
-                        "LEFT JOIN gebruikerKas\n" +
-                        "ON kas.kasNummer = gebruikerKas.kasNummer\n" +
-                        "WHERE gebruikersNaam = '" + lblUser.getText() + "'");
-                while(result1.next()){
-                    String strKasNaam= result1.getString("kasNaam");
-                    Integer strKasNummer = result1.getInt("kasNummer");
-                    String strDatum = result1.getString("datum");
-                    String strproduct = result1.getString("product");
-
-                    KasInformatie kas1 = new KasInformatie(strKasNummer, strKasNaam, strproduct, strDatum);
-                    
-                    items.add(kas1);
-                }
-                table.refresh();
-
-
-
-            } catch (SQLException se) {
-                se.printStackTrace();
-            } finally {
-                try {
-                    con2.close();
-                } catch (SQLException SQLe) {
-
-                }
-            }
+            items = kasInfCont.getKasInfo(lblUser.getText());
+            table.setItems(items);
+            table.refresh(); 
         });
     }
     

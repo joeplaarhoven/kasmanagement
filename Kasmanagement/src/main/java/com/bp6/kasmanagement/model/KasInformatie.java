@@ -15,9 +15,9 @@ import java.text.SimpleDateFormat;
 
 public class KasInformatie {
     private Integer kasId;
-    private String  kasNaam;
-    private String  product;
-    private String    datumTijd;
+    private String kasNaam;
+    private String product;
+    private String datumTijd;
 
     public Integer getKasId() {
         return kasId;
