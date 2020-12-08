@@ -6,6 +6,7 @@
 package com.bp6.kasmanagement.view;
 
 import com.bp6.kasmanagement.controller.DBCPDataSource;
+import com.bp6.kasmanagement.controller.InlogController;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -53,6 +54,10 @@ public class RegistratieScherm extends BorderPane {
 
     private Text registratietext = new Text(),
             fouttext = new Text("Wachtwoorden onjuist, probeer opnieuw!");
+    
+    private InlogController inlogController;
+    
+    
     
     public RegistratieScherm(){
         
@@ -110,9 +115,9 @@ public class RegistratieScherm extends BorderPane {
         registratietext.setText("Kunt u al inloggen? Klik dan hier!");
         registratietext.setOnMousePressed(event -> {
 
-//            this.getChildren().clear();
-//            inlogscherm = new Inlogscherm();
-//            this.setCenter(inlogscherm);
+            this.getChildren().clear();
+            inlogscherm = new InlogScherm( inlogController);
+            this.setCenter(inlogscherm);
         });
         
         registratietext.setOnMouseEntered(event -> {
@@ -128,7 +133,8 @@ public class RegistratieScherm extends BorderPane {
         });
         
         registratieknop.setOnAction(event -> {
-
+            
+            
             String naamdatabase = naamvak.getText();
             String wachtwoorddatabase = wachtwoordvak.getText();
             String herhaalwachtwoorddatabase = herhaalvak.getText();
@@ -144,9 +150,9 @@ public class RegistratieScherm extends BorderPane {
                     se.printStackTrace();
                 }
                 
-//                this.getChildren().clear();
-//                inlogscherm = new InlogScherm();
-//                this.setCenter(inlogscherm);
+                this.getChildren().clear();
+                inlogscherm = new InlogScherm(inlogController);
+                this.setCenter(inlogscherm);
             } else {
 
                
@@ -155,11 +161,28 @@ public class RegistratieScherm extends BorderPane {
                 
                 fouttext.setVisible(true);
                 
-                
-               
-
             }
+            
+            
 
         });
     }
+
+    public TextField getNaamvak() {
+        return naamvak;
+    }
+
+    public PasswordField getWachtwoordvak() {
+        return wachtwoordvak;
+    }
+
+    public Text getFouttext() {
+        return fouttext;
+    }
+
+    public PasswordField getHerhaalvak() {
+        return herhaalvak;
+    }
+    
+    
 }
