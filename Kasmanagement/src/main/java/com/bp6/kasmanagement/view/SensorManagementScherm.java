@@ -2,17 +2,14 @@ package com.bp6.kasmanagement.view;
 
 import com.bp6.kasmanagement.controller.DBCPDataSource;
 import com.bp6.kasmanagement.model.BodemVochtigheidSensor;
-import com.bp6.kasmanagement.model.KasInformatie;
 import com.bp6.kasmanagement.model.LichtSensor;
 import com.bp6.kasmanagement.model.LuchtVochtigheidSensor;
 import com.bp6.kasmanagement.model.TempratuurSensor;
 import com.bp6.kasmanagement.model.WindSensor;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,8 +22,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -48,10 +43,7 @@ public class SensorManagementScherm extends BorderPane {
     private CheckBox handmatig_Aansturen,sensor_Toevoegen;
     private Label lb_RaamOpenSluit, lb_SproeierAanUit,lb_KachelAanUit,lb_LampAanUit,lb_HandmatigAansturen, lb_KasKeuze, lb_kasToevoegen,lb_locatieToevoegen,lb_typeToevoegen,lb_sensorToevoegen,lb_binnen,lb_buiten;
     private TextField tf_TempratuurBinnen, tf_TempratuurBuiten,tf_WindsnelheidBuiten, tf_LuchtvochtigheidBinnen,tf_LuchtvochtigheidBuiten, tf_BodemvochtigheidBinnen,tf_LichtBinnen,tf_toevoegen;
-    private Button btn_RaamOpen, btn_RaamSluiten, btn_SproeierAan,btn_SproeierUit,btn_KachelAan, btn_KachelUit,btn_LampAan,btn_LampUit,btn_DataVullen,btn_Toevoegen,reloadknop;
-    private Image image_reloadknop;
-    private ImageView imageview;
-    private File file_reloadknop = new File("Res/reloadbuttonn.jpg");
+    private Button btn_RaamOpen, btn_RaamSluiten, btn_SproeierAan,btn_SproeierUit,btn_KachelAan, btn_KachelUit,btn_LampAan,btn_LampUit,btn_DataVullen,btn_Toevoegen;
     
     private TableView binnenTempratuurTableView = new TableView();
     private TableView buitenTempratuurTableView = new TableView();
@@ -67,21 +59,12 @@ public class SensorManagementScherm extends BorderPane {
     private ObservableList<WindSensor> WindArray = FXCollections.observableArrayList();
     private ObservableList<LichtSensor> LichtArray = FXCollections.observableArrayList();
     private ObservableList<BodemVochtigheidSensor> BodemArray = FXCollections.observableArrayList();
-//    private ArrayList<TempratuurSensor> BinnenTempArray = new ArrayList<>();
-//    private ArrayList<TempratuurSensor> BuitenTempArray = new ArrayList<>();private ArrayList<LuchtVochtigheidSensor> BinnenLuchtArray = new ArrayList<>();
-//    private ArrayList<LuchtVochtigheidSensor> BuitenLuchtArray = new ArrayList<>();
-//    private ArrayList<WindSensor> WindArray = new ArrayList<>();
-//    private ArrayList<LichtSensor> LichtArray = new ArrayList<>();
-//    private ArrayList<BodemVochtigheidSensor> BodemArray = new ArrayList<>();
+
   
     
     public SensorManagementScherm(){
         
-        
-        
-        
         // Creates Choicebox and sets prefSize
-        
         kasToevoegen = new ChoiceBox();
         locatieToevoegen = new ChoiceBox();
         kasToevoegen.setPrefSize(100, 30);
@@ -101,7 +84,6 @@ public class SensorManagementScherm extends BorderPane {
         hbox_Toevoegen = new HBox();
         
         // Creates VBox    
-     
         Labels_Knoppen = new VBox();
         Buttons_knoppenAan = new VBox();
         Buttons_knoppenUit = new VBox();
@@ -113,7 +95,6 @@ public class SensorManagementScherm extends BorderPane {
         Gridpane_Hoofdscherm = new GridPane();
         
         // Set Labels    
-       
         lb_RaamOpenSluit = new Label("Raam:");
         lb_SproeierAanUit = new Label("Sproeier:");
         lb_KachelAanUit = new Label("Kachel:");
@@ -128,7 +109,6 @@ public class SensorManagementScherm extends BorderPane {
         lb_buiten=new Label("       Buiten:   ");
         
         // Set Fonts labels
-        
         lb_RaamOpenSluit.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         lb_SproeierAanUit.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         lb_KachelAanUit.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
@@ -143,7 +123,6 @@ public class SensorManagementScherm extends BorderPane {
         lb_buiten.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         
          // Set witdth labels
-        
         lb_RaamOpenSluit.setPrefHeight(30);
         lb_SproeierAanUit.setPrefHeight(30);
         lb_KachelAanUit.setPrefHeight(30);
@@ -158,14 +137,10 @@ public class SensorManagementScherm extends BorderPane {
         lb_buiten.setPrefHeight(30);
         
         // Sets textfields
-       
         tf_toevoegen = new TextField();
         
         // Sets width textfields
-        
         tf_toevoegen.setPrefSize(100, 30);
-        
-        
         
         // Sets button
         btn_RaamOpen = new Button("Openen");
@@ -177,7 +152,6 @@ public class SensorManagementScherm extends BorderPane {
         btn_LampAan = new Button("Aan");
         btn_LampUit = new Button("Uit");
         btn_Toevoegen = new Button("Toevoegen");
-        reloadknop = new Button();
         
         // Sets size button
         btn_KachelAan.setPrefSize(70,30);
@@ -191,13 +165,11 @@ public class SensorManagementScherm extends BorderPane {
         btn_Toevoegen.setPrefSize(100,30);
         
         // Sets padding vbox
-        
         vbox_kasToevoegen.setPadding(new Insets(5, 5, 5, 5));
         vbox_locatieToevoegen.setPadding(new Insets(5, 5, 5, 5));
         vbox_typeToevoegen.setPadding(new Insets(5, 5, 5, 5));
        
         // Sets spacing Vbox
-        
         Labels_Knoppen.setSpacing(10);
         Buttons_knoppenAan.setSpacing(10);
         Buttons_knoppenUit.setSpacing(10);
@@ -205,10 +177,7 @@ public class SensorManagementScherm extends BorderPane {
         vbox_locatieToevoegen.setSpacing(10);
         vbox_typeToevoegen.setSpacing(10);
         
-        
          // Sets spacing Hbox
-        
-//        hbox_tableView.setSpacing(10);
         hbox_Actuatoren.setSpacing(15);
         hbox_KasKeuze.setSpacing(30);
         hbox_Main.setSpacing(500);
@@ -219,21 +188,11 @@ public class SensorManagementScherm extends BorderPane {
         hbox_Main.setPadding(new Insets(350, 5, 5, 10));
         hbox_tableView.setPadding(new Insets(30, 5, 5, 70));
         
-        
-        
         // set visibility Hbox
         hbox_Actuatoren.setVisible(false);
         hbox_Toevoegen.setVisible(false);
         
-        image_reloadknop = new Image(file_reloadknop.toURI().toString(), 20, 20, true, true);
-        imageview = new ImageView(image_reloadknop);
-        imageview.setPreserveRatio(true);
-        reloadknop.setGraphic(imageview);
-        reloadknop.setMaxSize(10, 10);
-        
-        
         // Places the items in the Vbox
-        
         Labels_Knoppen.getChildren().addAll(lb_RaamOpenSluit,lb_KachelAanUit,lb_LampAanUit,lb_SproeierAanUit);
         Buttons_knoppenAan.getChildren().addAll(btn_RaamOpen,btn_KachelAan,btn_LampAan,btn_SproeierAan);
         Buttons_knoppenUit.getChildren().addAll(btn_RaamSluiten,btn_KachelUit,btn_LampUit,btn_SproeierUit);
@@ -243,8 +202,7 @@ public class SensorManagementScherm extends BorderPane {
         
         
         // Places the Vbox in the Hbox
-        
-        hbox_tableView.getChildren().addAll(lb_binnen,binnenTempratuurTableView,binnenLuchtVochtTableView,lichtTableView,bodemVochtTableView,lb_buiten,buitenTempratuurTableView,buitenLuchtVochtTableView ,windTableView,reloadknop);
+        hbox_tableView.getChildren().addAll(lb_binnen,binnenTempratuurTableView,binnenLuchtVochtTableView,lichtTableView,bodemVochtTableView,lb_buiten,buitenTempratuurTableView,buitenLuchtVochtTableView ,windTableView);
         hbox_Actuatoren.getChildren().addAll(Labels_Knoppen,Buttons_knoppenAan,Buttons_knoppenUit);
         hbox_KasKeuze.getChildren().addAll(lb_HandmatigAansturen,handmatig_Aansturen,lb_sensorToevoegen,sensor_Toevoegen);
         hbox_Toevoegen.getChildren().addAll(vbox_kasToevoegen,vbox_locatieToevoegen,vbox_typeToevoegen);
@@ -256,7 +214,7 @@ public class SensorManagementScherm extends BorderPane {
         Gridpane_Hoofdscherm.add(hbox_tableView, 0, 1);
         Gridpane_Hoofdscherm.add(hbox_Main, 0, 1);
         
-       
+            
         
         
         // Events
@@ -272,16 +230,51 @@ public class SensorManagementScherm extends BorderPane {
             
         });
         
-        reloadknop.setOnAction(event -> {
+        btn_KachelAan.setOnAction(event->{
         
-        binnenTempratuurTableView.refresh();
-        buitenTempratuurTableView.refresh();
-        binnenLuchtVochtTableView.refresh();
-        buitenLuchtVochtTableView.refresh();
-        windTableView.refresh();
-        lichtTableView.refresh();
-        bodemVochtTableView.refresh();
-
+            
+            
+        });
+        
+        btn_KachelUit.setOnAction(event->{
+        
+            
+            
+        });
+        
+        btn_RaamOpen.setOnAction(event->{
+        
+            
+            
+        });
+        btn_RaamSluiten.setOnAction(event->{
+        
+            
+            
+        });
+        
+        btn_SproeierAan.setOnAction(event->{
+        
+            
+            
+        });
+        
+        btn_SproeierUit.setOnAction(event->{
+        
+            
+            
+        });
+        
+        btn_LampAan.setOnAction(event->{
+        
+            
+            
+        });
+        
+        btn_LampUit.setOnAction(event->{
+        
+            
+            
         });
         
         btn_Toevoegen.setOnAction((ActionEvent event)->{
@@ -552,67 +545,67 @@ public class SensorManagementScherm extends BorderPane {
                       }
         
         
-        TableColumn BinnenTemp = new TableColumn("Temp:");
+        TableColumn BinnenTemp = new TableColumn("Tempratuur in °C");
         BinnenTemp.setCellValueFactory(new PropertyValueFactory<TempratuurSensor,String>("tempratuurInput"));
 
-        TableColumn BuitenTemp = new TableColumn<>("Temp:");
+        TableColumn BuitenTemp = new TableColumn<>("Tempratuur in °C");
         BuitenTemp.setCellValueFactory(new PropertyValueFactory<TempratuurSensor,String>("tempratuurInput"));
 
-        TableColumn<String, LuchtVochtigheidSensor> BinnenLuchtVocht = new TableColumn<>("Lucht:");
+        TableColumn<String, LuchtVochtigheidSensor> BinnenLuchtVocht = new TableColumn<>("Luchtvocht in %");
         BinnenLuchtVocht.setCellValueFactory(new PropertyValueFactory<>("luchtVochtigheidInput"));
 
-        TableColumn<String, LuchtVochtigheidSensor> BuitenLuchtVocht = new TableColumn<>("Lucht:");
+        TableColumn<String, LuchtVochtigheidSensor> BuitenLuchtVocht = new TableColumn<>("Luchtvocht in %");
         BuitenLuchtVocht.setCellValueFactory(new PropertyValueFactory<>("luchtVochtigheidInput"));
         
-        TableColumn<String, WindSensor> Wind = new TableColumn<>("Wind:");
-        Wind.setCellValueFactory(new PropertyValueFactory<>("windInput" + "gr"));
+        TableColumn<String, WindSensor> Wind = new TableColumn<>("Wind in km/u");
+        Wind.setCellValueFactory(new PropertyValueFactory<>("windInput"));
         
-        TableColumn<String, LichtSensor> Licht = new TableColumn<>("Licht:");
+        TableColumn<String, LichtSensor> Licht = new TableColumn<>("Licht in lux");
         Licht.setCellValueFactory(new PropertyValueFactory<>("lichtInput"));
         
-        TableColumn<String, BodemVochtigheidSensor> BodemVocht = new TableColumn<>("Bodem:");
+        TableColumn<String, BodemVochtigheidSensor> BodemVocht = new TableColumn<>("Bodemvocht in %");
         BodemVocht.setCellValueFactory(new PropertyValueFactory<>("bodemVochtInput"));
 
         
-        binnenTempratuurTableView.setMaxSize(80, 300);
+        binnenTempratuurTableView.setMaxSize(120, 300);
         binnenTempratuurTableView.setItems(BinnenTempArray);
         binnenTempratuurTableView.getColumns().addAll(BinnenTemp);
         binnenTempratuurTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
-        buitenTempratuurTableView.setMaxSize(80, 300);
+        buitenTempratuurTableView.setMaxSize(120, 300);
         buitenTempratuurTableView.setItems(BuitenTempArray);
         buitenTempratuurTableView.getColumns().addAll(BuitenTemp);
         buitenTempratuurTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
-        binnenLuchtVochtTableView.setMaxSize(80, 300);
+        binnenLuchtVochtTableView.setMaxSize(120, 300);
         binnenLuchtVochtTableView.setItems(BinnenLuchtArray);
         binnenLuchtVochtTableView.getColumns().addAll(BinnenLuchtVocht);
         binnenLuchtVochtTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
-        buitenLuchtVochtTableView.setMaxSize(80, 300);
+        buitenLuchtVochtTableView.setMaxSize(120, 300);
         buitenLuchtVochtTableView.setItems(BuitenLuchtArray);
         buitenLuchtVochtTableView.getColumns().addAll(BuitenLuchtVocht);
         buitenLuchtVochtTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
-        windTableView.setMaxSize(80, 300);
+        windTableView.setMaxSize(120, 300);
         windTableView.setItems(WindArray);
         windTableView.getColumns().addAll(Wind);
         windTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
-        lichtTableView.setMaxSize(80, 300);
+        lichtTableView.setMaxSize(120, 300);
         lichtTableView.setItems(LichtArray);
         lichtTableView.getColumns().addAll(Licht);
         lichtTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
-        bodemVochtTableView.setMaxSize(80, 300);
+        bodemVochtTableView.setMaxSize(120, 300);
         bodemVochtTableView.setItems(BodemArray);
         bodemVochtTableView.getColumns().addAll(BodemVocht);
         bodemVochtTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
            
 
-          // set Center of the BorderPane
-        this.setCenter(Gridpane_Hoofdscherm);    
+        // set Center of the BorderPane
+        this.setCenter(Gridpane_Hoofdscherm); 
 
     }
     
