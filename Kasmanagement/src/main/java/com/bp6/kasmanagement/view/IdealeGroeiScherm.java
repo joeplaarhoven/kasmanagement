@@ -49,12 +49,12 @@ public class IdealeGroeiScherm extends BorderPane {
         
         // Creates tables
         tc_productName = new TableColumn("Naam product");
-        tc_Temperature = new TableColumn("Temperatuur");
-        tc_Humidity = new TableColumn("Luchtvochtigheid");
-        tc_SoilMoisture = new TableColumn("Grond vochtigheid");
+        tc_Temperature = new TableColumn("Temperatuur (°)");
+        tc_Humidity = new TableColumn("Luchtvochtigheid (%)");
+        tc_SoilMoisture = new TableColumn("Grond vochtigheid (%)");
         tc_Light = new TableColumn("Belichting (lux)");
-        tc_MaxWind = new TableColumn("Max windsnelheid");
-        tc_Growth = new TableColumn("Groei tijd");
+        tc_MaxWind = new TableColumn("Max windsnelheid (km/h)");
+        tc_Growth = new TableColumn("Groei tijd (Uren)");
         
         // Sets model variable
         tc_productName.setCellValueFactory(new PropertyValueFactory<>("product"));
@@ -67,12 +67,12 @@ public class IdealeGroeiScherm extends BorderPane {
                 
         // Set Labels    
         lb_productName = new Label("Naam product");
-        lb_Temperature = new Label("Temperatuur");
-        lb_Humidity = new Label("Luchtvochtigheid");
-        lb_SoilMoisture = new Label("Grond vochtigheid");
+        lb_Temperature = new Label("Temperatuur (°)");
+        lb_Humidity = new Label("Luchtvochtigheid (%)");
+        lb_SoilMoisture = new Label("Grond vochtigheid (%)");
         lb_Light = new Label("Belichting (lux)");
-        lb_Growth = new Label("Groei tijd");
-        lb_MaxWind = new Label("Max windsnelheid");
+        lb_MaxWind = new Label("Max windsnelheid (km/h)");
+        lb_Growth = new Label("Groei tijd (Uren)");
         lb_productListLabel = new Label("Producten lijst");
         
         // Sets textfields
@@ -85,7 +85,7 @@ public class IdealeGroeiScherm extends BorderPane {
         tf_Growth = new TextField();
 
         // Sets button
-        btn_addProduct = new Button("Product Toevoegen");
+        btn_addProduct = new Button("Product +");
         btn_addProduct.setOnAction(e ->{
             idealeGroeiController.setIdealeGroeiObject();
             idealeGroeiController.refreshTableView();
@@ -106,7 +106,7 @@ public class IdealeGroeiScherm extends BorderPane {
         lb_Humidity.setPrefWidth(200);
         lb_SoilMoisture.setPrefWidth(200);
         lb_Light.setPrefWidth(150);
-        lb_MaxWind.setPrefWidth(200);
+        lb_MaxWind.setPrefWidth(220);
         lb_Growth.setPrefWidth(150);
        
         // Sets width textfields
@@ -115,7 +115,7 @@ public class IdealeGroeiScherm extends BorderPane {
         tf_Humidity.setPrefWidth(200);
         tf_SoilMoisture.setPrefWidth(200);
         tf_Light.setPrefWidth(150);
-        tf_MaxWind.setPrefWidth(200);
+        tf_MaxWind.setPrefWidth(220);
         tf_Growth.setPrefWidth(150);
         
         // Sets width tableViews

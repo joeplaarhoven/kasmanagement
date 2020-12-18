@@ -9,7 +9,7 @@ import javafx.stage.Stage;
  * 
  * @author laarh
  */
-public class main extends Application {
+public class Main extends Application {
 
     /**
      * @param mainStage
