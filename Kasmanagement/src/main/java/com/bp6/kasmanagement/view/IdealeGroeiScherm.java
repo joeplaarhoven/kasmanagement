@@ -49,30 +49,30 @@ public class IdealeGroeiScherm extends BorderPane {
         
         // Creates tables
         tc_productName = new TableColumn("Naam product");
-        tc_Temperature = new TableColumn("Temperatuur");
-        tc_Humidity = new TableColumn("Luchtvochtigheid");
-        tc_SoilMoisture = new TableColumn("Grond vochtigheid");
-        tc_Light = new TableColumn("Belichting (lux)");
-        tc_MaxWind = new TableColumn("Max windsnelheid");
-        tc_Growth = new TableColumn("Groei tijd");
+        tc_Temperature = new TableColumn("Temperatuur °C");
+        tc_Humidity = new TableColumn("Luchtvochtigheid %");
+        tc_SoilMoisture = new TableColumn("Grond vochtigheid %");
+        tc_Light = new TableColumn("Belichting lux");
+        tc_MaxWind = new TableColumn("Max windsnelheid km/h");
+        tc_Growth = new TableColumn("Groei tijd dagen");
         
         // Sets model variable
         tc_productName.setCellValueFactory(new PropertyValueFactory<>("product"));
-        tc_Temperature.setCellValueFactory(new PropertyValueFactory<>("tempIdeaal"));
-        tc_Humidity.setCellValueFactory(new PropertyValueFactory<>("vochtIdeaal"));
-        tc_SoilMoisture.setCellValueFactory(new PropertyValueFactory<>("bodemVochtIdeaal"));
-        tc_Light.setCellValueFactory(new PropertyValueFactory<>("lichtIdeaal"));
-        tc_MaxWind.setCellValueFactory(new PropertyValueFactory<>("windMax"));
-        tc_Growth.setCellValueFactory(new PropertyValueFactory<>("groeiTijd"));  
+        tc_Temperature.setCellValueFactory(new PropertyValueFactory<>("tempIdeaal °C"));
+        tc_Humidity.setCellValueFactory(new PropertyValueFactory<>("vochtIdeaal %"));
+        tc_SoilMoisture.setCellValueFactory(new PropertyValueFactory<>("bodemVochtIdeaal %"));
+        tc_Light.setCellValueFactory(new PropertyValueFactory<>("lichtIdeaal lux"));
+        tc_MaxWind.setCellValueFactory(new PropertyValueFactory<>("windMax km/h"));
+        tc_Growth.setCellValueFactory(new PropertyValueFactory<>("groeiTijd dagen"));  
                 
         // Set Labels    
         lb_productName = new Label("Naam product");
-        lb_Temperature = new Label("Temperatuur");
-        lb_Humidity = new Label("Luchtvochtigheid");
-        lb_SoilMoisture = new Label("Grond vochtigheid");
-        lb_Light = new Label("Belichting (lux)");
-        lb_Growth = new Label("Groei tijd");
-        lb_MaxWind = new Label("Max windsnelheid");
+        lb_Temperature = new Label("Temperatuur °C");
+        lb_Humidity = new Label("Luchtvochtigheid %");
+        lb_SoilMoisture = new Label("Grond vochtigheid %");
+        lb_Light = new Label("Belichting lux");
+        lb_Growth = new Label("Groei tijd dagen");
+        lb_MaxWind = new Label("Max windsnelheid km/h");
         lb_productListLabel = new Label("Producten lijst");
         
         // Sets textfields

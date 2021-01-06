@@ -134,16 +134,17 @@ public class RegistratieScherm extends BorderPane {
         
         registratieknop.setOnAction(event -> {
             
+            String Gebruiker = "gebruiker";
             
             String naamdatabase = naamvak.getText();
             String wachtwoorddatabase = wachtwoordvak.getText();
             String herhaalwachtwoorddatabase = herhaalvak.getText();
-
+            
             if (wachtwoorddatabase.equals(herhaalwachtwoorddatabase) && !wachtwoorddatabase.equals("")) {
                 try {
                     Connection con = DBCPDataSource.getConnection();
                     Statement stat = con.createStatement();
-                    stat.executeUpdate("insert into gebruiker values ('" + naamdatabase + "','" + wachtwoorddatabase + "')");
+                    stat.executeUpdate("insert into gebruiker values ('" + naamdatabase + "','" + wachtwoorddatabase + "','" + Gebruiker + "')");
 
                 } catch (SQLException se) {
 
