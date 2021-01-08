@@ -7,6 +7,7 @@ import com.bp6.kasmanagement.model.LichtSensor;
 import com.bp6.kasmanagement.model.LuchtVochtigheidSensor;
 import com.bp6.kasmanagement.model.TempratuurSensor;
 import com.bp6.kasmanagement.model.WindSensor;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,6 +24,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -44,7 +47,7 @@ public class SensorManagementScherm extends BorderPane {
     private CheckBox sensor_Toevoegen;
     private Label lb_KasKeuze, lb_kasToevoegen,lb_locatieToevoegen,lb_typeToevoegen,lb_sensorToevoegen,lb_binnen,lb_buiten;
     private TextField tf_toevoegen;
-    private Button btn_Toevoegen;
+    private Button btn_Toevoegen,refresh;
     
     private TableView binnenTempratuurTableView = new TableView();
     private TableView buitenTempratuurTableView = new TableView();
@@ -53,6 +56,10 @@ public class SensorManagementScherm extends BorderPane {
     private TableView windTableView = new TableView();
     private TableView lichtTableView = new TableView();
     private TableView bodemVochtTableView = new TableView();
+    
+    private File file_reloadknop = new File("Res/reloadbuttonn.jpg");
+    private Image image_reloadknop= new Image(file_reloadknop.toURI().toString(), 20, 20, true, true);;
+    private ImageView imageview = new ImageView(image_reloadknop);
 
     private SensorManagementController sensorManagementController;
 
@@ -121,9 +128,17 @@ public class SensorManagementScherm extends BorderPane {
         
         // Sets button
         btn_Toevoegen = new Button("Toevoegen");
+        refresh = new Button();
         
         // Sets size button
         btn_Toevoegen.setPrefSize(100,30);
+        refresh.setPrefSize(10, 10);
+        
+        /* buttonImage */
+        imageview.setPreserveRatio(true);
+        refresh.setGraphic(imageview);
+        
+        
         
         // Sets padding vbox
         vbox_kasToevoegen.setPadding(new Insets(5, 5, 5, 5));
@@ -157,7 +172,7 @@ public class SensorManagementScherm extends BorderPane {
         // Places the Vbox in the Hbox
         hbox_tableView.getChildren().addAll(lb_binnen,binnenTempratuurTableView,binnenLuchtVochtTableView,lichtTableView,bodemVochtTableView,lb_buiten,
                 buitenTempratuurTableView,buitenLuchtVochtTableView ,windTableView);
-        hbox_KasKeuze.getChildren().addAll(lb_sensorToevoegen,sensor_Toevoegen);
+        hbox_KasKeuze.getChildren().addAll(lb_sensorToevoegen,sensor_Toevoegen,refresh);
         hbox_Toevoegen.getChildren().addAll(vbox_kasToevoegen,vbox_locatieToevoegen,vbox_typeToevoegen);
         hbox_Main.getChildren().addAll(hbox_Toevoegen);
        
@@ -232,9 +247,14 @@ public class SensorManagementScherm extends BorderPane {
         
         // Events
         sensor_Toevoegen.setOnAction(event->{
-        
             ShowToevoegenHbox();
-            
+//            
+            if(sensor_Toevoegen.isSelected()){
+                ShowToevoegenHbox();
+            }
+            else{
+                notShowToevoegenHbox();
+            }
         });
         
         
@@ -244,6 +264,34 @@ public class SensorManagementScherm extends BorderPane {
                 
                 sensorManagementController.SetNieuweSensor();
             }
+        });
+        
+        refresh.setOnAction(event->{
+        
+        binnenTempratuurTableView.getItems().clear();
+        buitenTempratuurTableView.getItems().clear();
+        binnenLuchtVochtTableView.getItems().clear();
+        buitenLuchtVochtTableView.getItems().clear();
+        windTableView.getItems().clear();
+        lichtTableView.getItems().clear();
+        bodemVochtTableView.getItems().clear();
+        
+        binnenTempratuurTableView.setItems(sensorManagementController.getBinnenTempratuurData());
+        buitenTempratuurTableView.setItems(sensorManagementController.getBuitenTempratuurData());
+        binnenLuchtVochtTableView.setItems(sensorManagementController.getBinnenLuchtVochtigheidData());
+        buitenLuchtVochtTableView.setItems(sensorManagementController.getBuitenLuchtVochtigheidData());
+        windTableView.setItems(sensorManagementController.getWindData());
+        lichtTableView.setItems(sensorManagementController.getLichtData());
+        bodemVochtTableView.setItems(sensorManagementController.getBodemVochtigheidData());
+        
+        binnenTempratuurTableView.refresh();
+        buitenTempratuurTableView.refresh();
+        binnenLuchtVochtTableView.refresh();
+        buitenLuchtVochtTableView.refresh();
+        windTableView.refresh();
+        lichtTableView.refresh();
+        bodemVochtTableView.refresh();
+            
         });
         
         
@@ -260,6 +308,11 @@ public class SensorManagementScherm extends BorderPane {
     public void ShowToevoegenHbox(){
         
         hbox_Toevoegen.setVisible(true);
+    }
+    
+    public void notShowToevoegenHbox(){
+        
+        hbox_Toevoegen.setVisible(false);
     }
 
     public ChoiceBox getKasToevoegen() {
