@@ -106,7 +106,7 @@ public class IdealeGroeiScherm extends BorderPane {
         lb_Humidity.setPrefWidth(200);
         lb_SoilMoisture.setPrefWidth(200);
         lb_Light.setPrefWidth(150);
-        lb_MaxWind.setPrefWidth(200);
+        lb_MaxWind.setPrefWidth(210);
         lb_Growth.setPrefWidth(150);
        
         // Sets width textfields
@@ -115,17 +115,17 @@ public class IdealeGroeiScherm extends BorderPane {
         tf_Humidity.setPrefWidth(200);
         tf_SoilMoisture.setPrefWidth(200);
         tf_Light.setPrefWidth(150);
-        tf_MaxWind.setPrefWidth(200);
+        tf_MaxWind.setPrefWidth(210);
         tf_Growth.setPrefWidth(150);
         
         // Sets width tableViews
-        tc_productName.setPrefWidth(150);
-        tc_Temperature.setPrefWidth(150);
-        tc_Humidity.setPrefWidth(200);
-        tc_SoilMoisture.setPrefWidth(200);
-        tc_Light.setPrefWidth(150);
-        tc_MaxWind.setPrefWidth(200);
-        tc_Growth.setPrefWidth(150);
+        tc_productName.setPrefWidth(155);
+        tc_Temperature.setPrefWidth(160);
+        tc_Humidity.setPrefWidth(210);
+        tc_SoilMoisture.setPrefWidth(210);
+        tc_Light.setPrefWidth(160);
+        tc_MaxWind.setPrefWidth(220);
+        tc_Growth.setPrefWidth(155);
               
         // Sets width button
         btn_addProduct.setPrefWidth(150);
