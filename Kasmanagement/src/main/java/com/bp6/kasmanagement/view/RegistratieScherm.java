@@ -134,7 +134,7 @@ public class RegistratieScherm extends BorderPane {
         
         registratieknop.setOnAction(event -> {
             
-            String Gebruiker = "gebruiker";
+            String Gebruiker = "Gebruiker";
             
             String naamdatabase = naamvak.getText();
             String wachtwoorddatabase = wachtwoordvak.getText();
