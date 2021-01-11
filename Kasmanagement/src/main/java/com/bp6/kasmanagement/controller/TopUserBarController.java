@@ -31,6 +31,10 @@ public class TopUserBarController {
     public void sensor_Management(String user) {
         startscherm.switchpane(2, user);
     }
+    
+    public void toe_stemming(String user){
+        startscherm.switchpane(3, user);
+    }
 
     public void logout() {
         rootpane.switchpane(0);

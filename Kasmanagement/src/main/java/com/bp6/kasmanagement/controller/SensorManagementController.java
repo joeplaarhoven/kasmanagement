@@ -169,8 +169,7 @@ public class SensorManagementController {
                             catch (Exception e) {
                               }
                       }
-//         Deze refresht the array   .                BinnenTempArray.removeAll(BinnenTempArray);
-//                            BinnenTempArray.add(binnenTempratuurSensor);       
+     
         
         return BinnenTempArray;
     }
