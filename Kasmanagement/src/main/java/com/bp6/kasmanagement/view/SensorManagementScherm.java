@@ -1,6 +1,5 @@
 package com.bp6.kasmanagement.view;
 
-import com.bp6.kasmanagement.controller.DBCPDataSource;
 import com.bp6.kasmanagement.controller.SensorManagementController;
 import com.bp6.kasmanagement.model.BodemVochtigheidSensor;
 import com.bp6.kasmanagement.model.LichtSensor;
@@ -8,12 +7,6 @@ import com.bp6.kasmanagement.model.LuchtVochtigheidSensor;
 import com.bp6.kasmanagement.model.TempratuurSensor;
 import com.bp6.kasmanagement.model.WindSensor;
 import java.io.File;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -122,6 +115,7 @@ public class SensorManagementScherm extends BorderPane {
         
         // Sets textfields
         tf_toevoegen = new TextField();
+        
         
         // Sets width textfields
         tf_toevoegen.setPrefSize(100, 30);
