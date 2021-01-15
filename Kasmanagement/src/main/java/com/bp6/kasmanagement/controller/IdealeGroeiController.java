@@ -109,6 +109,13 @@ public class IdealeGroeiController {
             while (result.next()) {
                 IdealeGroei object = new IdealeGroei (result.getString("product"), result.getInt("tempIdeaal"), result.getInt("vochtIdeaal"), result.getInt("windMax"), result.getInt("lichtIdeaal"), result.getInt("bodemVochtIdeaal"), result.getInt("groeiTijd"));
                 idealeGroeiArraylist.add(object);
+                System.out.println(object.getProduct() + "product");
+                System.out.println(object.getTempIdeaal());
+                System.out.println(object.getVochtIdeaal());
+                System.out.println(object.getWindMax());
+                System.out.println(object.getLichtIdeaal());
+                System.out.println(object.getBodemVochtIdeaal());
+                System.out.println(object.getGroeiTijd());                                 
             }
 
         } catch (SQLException se) {

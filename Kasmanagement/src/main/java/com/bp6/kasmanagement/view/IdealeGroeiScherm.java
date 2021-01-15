@@ -58,12 +58,12 @@ public class IdealeGroeiScherm extends BorderPane {
         
         // Sets model variable
         tc_productName.setCellValueFactory(new PropertyValueFactory<>("product"));
-        tc_Temperature.setCellValueFactory(new PropertyValueFactory<>("tempIdeaal °C"));
-        tc_Humidity.setCellValueFactory(new PropertyValueFactory<>("vochtIdeaal %"));
-        tc_SoilMoisture.setCellValueFactory(new PropertyValueFactory<>("bodemVochtIdeaal %"));
-        tc_Light.setCellValueFactory(new PropertyValueFactory<>("lichtIdeaal lux"));
-        tc_MaxWind.setCellValueFactory(new PropertyValueFactory<>("windMax km/h"));
-        tc_Growth.setCellValueFactory(new PropertyValueFactory<>("groeiTijd dagen"));  
+        tc_Temperature.setCellValueFactory(new PropertyValueFactory<>("tempIdeaal"));
+        tc_Humidity.setCellValueFactory(new PropertyValueFactory<>("vochtIdeaal"));
+        tc_SoilMoisture.setCellValueFactory(new PropertyValueFactory<>("bodemVochtIdeaal"));
+        tc_Light.setCellValueFactory(new PropertyValueFactory<>("lichtIdeaal"));
+        tc_MaxWind.setCellValueFactory(new PropertyValueFactory<>("windMax"));
+        tc_Growth.setCellValueFactory(new PropertyValueFactory<>("groeiTijd"));  
                 
         // Set Labels    
         lb_productName = new Label("Naam product");
@@ -129,6 +129,7 @@ public class IdealeGroeiScherm extends BorderPane {
               
         // Sets width button
         btn_addProduct.setPrefWidth(150);
+        btn_addProduct.setPadding(new Insets(5, 5, 5, 5));
         
         // Sets padding hbox
         hbox_labelProducts.setPadding(new Insets(5, 5, 5, 5));
