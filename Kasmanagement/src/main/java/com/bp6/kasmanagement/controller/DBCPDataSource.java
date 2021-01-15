@@ -16,7 +16,7 @@ public class DBCPDataSource {
      static{
          
         ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://serverbp5.mysql.database.azure.com:3306/kasmanagement?useSSL=true&enabledTLSProtocols=TLSv1.2");
+        ds.setUrl("jdbc:mysql://bp6server.mysql.database.azure.com:3306/kasmanagement?useSSL=true&enabledTLSProtocols=TLSv1.2");
         ds.setUsername("mgmt_admin");
         ds.setPassword("AaL6HS3LRca4mbO34Ow9");
         ds.setMinIdle(5);

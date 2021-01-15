@@ -1,0 +1,11 @@
+bodemVocht,licht,luchtVocht,temp,wind,volGroeit
+hoog,hoog,laag,goed,laag,true
+laag,hoog,goed,goed,laag,false
+goed,laag,hoog,goed,hoog,true
+laag,goed,laag,hoog,goed,true
+hoog,laag,goed,hoog,laag,false
+goed,goed,goed,laag,hoog,true
+laag,hoog,laag,goed,laag,false
+laag,goed,hoog,laag,goed,false
+goed,hoog,laag,goed,laag,true
+hoog,laag,goed,hoog,goed,false
