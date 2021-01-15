@@ -1,5 +1,6 @@
 package com.bp6.kasmanagement.view;
 
+import com.bp6.kasmanagement.ID3.Driver;
 import com.bp6.kasmanagement.controller.InlogController;
 import com.bp6.kasmanagement.controller.TopUserBarController;
 import com.bp6.kasmanagement.model.Gebruiker;
@@ -30,6 +31,8 @@ public class Rootpane extends BorderPane {
     private Gebruiker user;
 
     public Rootpane() {
+        Driver driver = new Driver();
+        
 
         inlogController = new InlogController(this);
         topUserBarController = new TopUserBarController(this);
@@ -45,6 +48,8 @@ public class Rootpane extends BorderPane {
 
         productenScherm = new IdealeGroeiScherm();
         topUserBarController.setStartscherm(startscherm);
+        
+        
 
         this.setTop(header);
         this.setBottom(footer);
