@@ -4,7 +4,6 @@ import com.bp6.kasmanagement.controller.TopUserBarController;
 import com.bp6.kasmanagement.model.KasInformatie;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -16,7 +15,7 @@ import javafx.scene.text.FontWeight;
  */
 public class TopUserBar extends HBox {
 
-    Button products, sensorManagement, logout, users, btn_kasinformatie;
+    Button products, sensorManagement, logout, users, btn_kasinformatie,toestemming;
 
     KasInformatie selecteer_Kas;
 
@@ -28,6 +27,7 @@ public class TopUserBar extends HBox {
         sensorManagement = new Button("Sensormanagement");
         products = new Button("Producten");
         logout = new Button("Uitloggen");
+        toestemming = new Button("Actuatoren");
 
 
         // Knoppen logica
@@ -47,6 +47,10 @@ public class TopUserBar extends HBox {
         logout.setOnAction(e -> {
             topUserBarController.logout();
         });
+        
+        toestemming.setOnAction(e -> {
+            topUserBarController.toe_stemming(user.getText());
+        });
 
         // Sets Label and size
         user = new Label();
@@ -59,6 +63,8 @@ public class TopUserBar extends HBox {
         sensorManagement.setPrefWidth(200);
         products.setPrefWidth(200);
         logout.setPrefWidth(200);
+        toestemming.setPrefWidth(200);
+        
 
         // Sets height
         btn_kasinformatie.setPrefHeight(45);
@@ -66,19 +72,21 @@ public class TopUserBar extends HBox {
         sensorManagement.setPrefHeight(45);
         products.setPrefHeight(45);
         logout.setPrefHeight(45);
-
+        toestemming.setPrefHeight(45);
+        
         // Sets padding
         btn_kasinformatie.setPadding(new Insets(5, 5, 5, 5));
         user.setPadding(new Insets(5, 5, 5, 5));
         sensorManagement.setPadding(new Insets(5, 5, 5, 5));
         products.setPadding(new Insets(5, 5, 5, 5));
         logout.setPadding(new Insets(5, 5, 5, 5));
+        toestemming.setPadding(new Insets(5, 5, 5, 5));
 
         // Sets spacing
         this.setSpacing(20);
         this.setPadding(new Insets (5, 5, 5, 5));
 
-        this.getChildren().addAll(btn_kasinformatie, products, sensorManagement, logout, user);
+        this.getChildren().addAll(btn_kasinformatie, products, sensorManagement,toestemming,logout, user);
     }
 
     public Label getUser() {

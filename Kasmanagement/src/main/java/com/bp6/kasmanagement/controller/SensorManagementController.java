@@ -150,6 +150,7 @@ public class SensorManagementController {
                         if(strLocatie.equals("binnen")){
                             TempratuurSensor binnenTempratuurSensor = new TempratuurSensor(strLocatie,strType,strInput,strDatumTijd);
                             BinnenTempArray.add(binnenTempratuurSensor);
+                            
                         }
                         
                         
@@ -168,6 +169,7 @@ public class SensorManagementController {
                             catch (Exception e) {
                               }
                       }
+     
         
         return BinnenTempArray;
     }

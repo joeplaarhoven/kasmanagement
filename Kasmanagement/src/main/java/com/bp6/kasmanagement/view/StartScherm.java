@@ -12,12 +12,14 @@ public class StartScherm extends BorderPane {
     private IdealeGroeiScherm productenScherm;
     private GebruikersScherm gebruikersScherm;
     private SensorManagementScherm sensorManagementScherm;
+    private ToestemmingScherm toestemmingScherm;
 
     public StartScherm(TopUserBar topUserBar) {
 
         kasInformatieScherm = new KasInformatieScherm();
         productenScherm = new IdealeGroeiScherm();
         sensorManagementScherm = new SensorManagementScherm();
+        toestemmingScherm = new ToestemmingScherm();
 
         setTop(topUserBar);
     }
@@ -39,6 +41,9 @@ public class StartScherm extends BorderPane {
 
             case 2:
                 this.setCenter(sensorManagementScherm);
+                break;
+            case 3:
+                this.setCenter(toestemmingScherm);
                 break;
         }
     }
