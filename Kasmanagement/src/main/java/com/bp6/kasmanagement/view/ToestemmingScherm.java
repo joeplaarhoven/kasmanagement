@@ -15,8 +15,6 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -47,6 +45,9 @@ public class ToestemmingScherm extends BorderPane {
         buitenTemplabel = new Label("Buiten Temperatuur:");
         binnenLuchtLabel= new Label("Binnen Luchtvochtigheid:");
         buitenLuchtLabel= new Label("Buiten luchtvochtigheid:");
+        
+        //sets padding button
+        huidigeStatus.setPadding(new Insets(5, 5, 5, 5));
         
         //Text    
         windToestemmingTekst = new Text();
@@ -119,16 +120,13 @@ public class ToestemmingScherm extends BorderPane {
         buitenTempBar.setEditable(false);
         binnenLuchtBar.setEditable(false);
         buitenLuchtBar.setEditable(false);
-        
-       
-        
+              
         // set Padding Vbox
         hoofdPane.setPadding(new Insets(50, 5, 5, 100));
      
         //set Vgap and Hgap
         hoofdPane.setVgap(30);
         hoofdPane.setHgap(40);
-        
         
         //Placing the items in the gridPan
         hoofdPane.add(huidigeStatus, 0, 0);
@@ -153,13 +151,7 @@ public class ToestemmingScherm extends BorderPane {
         hoofdPane.add(buitenTempBar, 3, 4);
         hoofdPane.add(binnenLuchtBar, 3, 5);
         hoofdPane.add(buitenLuchtBar, 3, 6);
-        
-        
-        
-        
-
-
-        
+         
         huidigeStatus.setOnAction(event->{
             String resultWindString =toestemmingController.setWindToestemming();
             String resultLichtString =toestemmingController.setLichtToestemming();
