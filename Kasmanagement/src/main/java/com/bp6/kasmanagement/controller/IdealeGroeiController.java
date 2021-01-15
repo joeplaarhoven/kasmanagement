@@ -107,8 +107,9 @@ public class IdealeGroeiController {
             ResultSet result = stat1.executeQuery("select * from idealegroei");
 
             while (result.next()) {
-                IdealeGroei object = new IdealeGroei(result.getString("product"), result.getInt("tempIdeaal"), result.getInt("vochtIdeaal"), result.getInt("windMax"), result.getInt("lichtIdeaal"), result.getInt("bodemVochtIdeaal"), result.getInt("groeiTijd"));
+                IdealeGroei object = new IdealeGroei (result.getString("product"), result.getInt("tempIdeaal"), result.getInt("vochtIdeaal"), result.getInt("windMax"), result.getInt("lichtIdeaal"), result.getInt("bodemVochtIdeaal"), result.getInt("groeiTijd"));
                 idealeGroeiArraylist.add(object);
+                              
             }
 
         } catch (SQLException se) {

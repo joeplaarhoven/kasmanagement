@@ -27,7 +27,7 @@ public class TopUserBar extends HBox {
         sensorManagement = new Button("Sensormanagement");
         products = new Button("Producten");
         logout = new Button("Uitloggen");
-        toestemming = new Button("Actuatoren");
+        toestemming = new Button("Status");
 
 
         // Knoppen logica

@@ -5,24 +5,14 @@
  */
 package com.bp6.kasmanagement.view;
 
-import com.bp6.kasmanagement.controller.DBCPDataSource;
 import com.bp6.kasmanagement.controller.KasInformatieController;
-import com.bp6.kasmanagement.model.Gebruiker;
 import com.bp6.kasmanagement.model.KasInformatie;
-import static java.lang.System.in;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -102,6 +92,12 @@ public class KasInformatieScherm extends BorderPane {
         btn_deselect = new Button("Deselecteer");
         btn_delete = new Button("Verwijder rij");
 
+        // Sets padding button
+        btn_addKas.setPadding(new Insets(5, 5, 5, 5));
+        btn_deselect.setPadding(new Insets(5, 5, 5, 5));
+        btn_delete.setPadding(new Insets(5, 5, 5, 5));
+        
+        
         // Set Fonts
         lbl_kasName.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         lbl_product.setFont(Font.font("Verdana", FontWeight.BOLD, 15));

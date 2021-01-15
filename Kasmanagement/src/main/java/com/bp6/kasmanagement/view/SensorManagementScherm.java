@@ -124,6 +124,10 @@ public class SensorManagementScherm extends BorderPane {
         btn_Toevoegen = new Button("Toevoegen");
         refresh = new Button();
         
+        // Sets padding button
+        btn_Toevoegen.setPadding(new Insets(5, 5, 5, 5));
+        refresh.setPadding(new Insets(5, 5, 5, 5));
+        
         // Sets size button
         btn_Toevoegen.setPrefSize(100,30);
         refresh.setPrefSize(10, 10);
