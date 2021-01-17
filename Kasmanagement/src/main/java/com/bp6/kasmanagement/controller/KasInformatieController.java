@@ -5,6 +5,7 @@
  */
 package com.bp6.kasmanagement.controller;
 
+import com.bp6.kasmanagement.ID3.Driver;
 import com.bp6.kasmanagement.model.KasInformatie;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -128,12 +129,18 @@ public class KasInformatieController {
                     "WHERE gebruikersNaam = '" + user + "'");
             while(result1.next()){
                 String strKasNaam= result1.getString("kasNaam");
-                Integer strKasNummer = result1.getInt("kasNummer");
+                Integer intKasNummer = result1.getInt("kasNummer");
                 String strDatum = result1.getString("datum");
                 String strproduct = result1.getString("product");
 
-                KasInformatie kas1 = new KasInformatie(strKasNummer, strKasNaam, strproduct, strDatum);
-
+                
+                Driver driver = new Driver();
+                String result = driver.runID3(intKasNummer);
+                String groei = "";
+                if(result.equals("goed") || result.equals("fout")){
+                    groei = result;
+                }
+                KasInformatie kas1 = new KasInformatie(intKasNummer, strKasNaam, strproduct, strDatum, groei);
                 items.add(kas1);
             }
             } catch (SQLException se) {

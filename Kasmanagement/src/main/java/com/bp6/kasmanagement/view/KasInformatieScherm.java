@@ -56,17 +56,17 @@ public class KasInformatieScherm extends BorderPane {
         
         items = kasInfCont.getKasInfo(lblUser.getText());
             
-           
-            
         TableColumn kasNaamCol = new TableColumn("Kas naam");
         kasNaamCol.setCellValueFactory(new PropertyValueFactory<KasInformatie,String>("kasNaam"));
         TableColumn productCol = new TableColumn("product");
         productCol.setCellValueFactory(new PropertyValueFactory<KasInformatie,String>("product"));
         TableColumn datumCol = new TableColumn("Datum");
         datumCol.setCellValueFactory(new PropertyValueFactory<KasInformatie,String>("datumTijd"));
+        TableColumn groeiCol = new TableColumn("Verwachten groei");
+        groeiCol.setCellValueFactory(new PropertyValueFactory<KasInformatie,String>("groei"));
         
         table.setItems(items);
-        table.getColumns().addAll(kasNaamCol, productCol, datumCol);
+        table.getColumns().addAll(kasNaamCol, productCol, datumCol, groeiCol);
         
         // Creates Hbox    
         hbox_labels = new HBox();
@@ -110,6 +110,7 @@ public class KasInformatieScherm extends BorderPane {
         kasNaamCol.setPrefWidth(160);
         productCol.setPrefWidth(160);
         datumCol.setPrefWidth(160);
+        groeiCol.setPrefWidth(160);
 
         // Sets width textfields
         txt_kasName.setPrefWidth(150);

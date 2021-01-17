@@ -18,6 +18,15 @@ public class IdealeGroei {
         this.groeiTijd = groeiTijd;
     }
 
+    public IdealeGroei(int tempIdeaal, int vochtIdeaal, int lichtIdeaal, int bodemVochtIdeaal) {
+        this.tempIdeaal = tempIdeaal;
+        this.vochtIdeaal = vochtIdeaal;
+        this.lichtIdeaal = lichtIdeaal;
+        this.bodemVochtIdeaal = bodemVochtIdeaal;
+    }
+    
+    
+
     public String getProduct() {
         return product;
     }

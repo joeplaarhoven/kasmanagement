@@ -31,7 +31,6 @@ public class Rootpane extends BorderPane {
     private Gebruiker user;
 
     public Rootpane() {
-        Driver driver = new Driver();
         
 
         inlogController = new InlogController(this);

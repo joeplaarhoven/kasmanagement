@@ -18,6 +18,18 @@ public class KasInformatie {
     private String kasNaam;
     private String product;
     private String datumTijd;
+    private String groei;
+
+
+    
+
+    public String getGroei() {
+        return groei;
+    }
+
+    public void setGroei(String groei) {
+        this.groei = groei;
+    }
 
     public Integer getKasId() {
         return kasId;
@@ -62,6 +74,14 @@ public class KasInformatie {
         this.kasNaam = kasNaam;
         this.product = product;
         this.datumTijd = datumTijd;
+    }
+    
+    public KasInformatie(Integer kasId, String kasNaam, String product, String datumTijd, String groei) {
+        this.kasId = kasId;
+        this.kasNaam = kasNaam;
+        this.product = product;
+        this.datumTijd = datumTijd;
+        this.groei = groei;
     }
 
     @Override
