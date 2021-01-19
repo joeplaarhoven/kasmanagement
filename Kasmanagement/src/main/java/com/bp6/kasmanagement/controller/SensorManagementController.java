@@ -59,6 +59,7 @@ public class SensorManagementController {
                         
                     Integer strKasNummer = result.getInt("kasNummer");
                     sensorManagementScherm.getKasToevoegen().getItems().add(strKasNummer);
+                    sensorManagementScherm.getKasWeerGeven().getItems().add(strKasNummer);
                         }
                     
                     ResultSet result1 = stat.executeQuery("SELECT distinct locatie FROM sensorlocatie");
@@ -132,6 +133,7 @@ public class SensorManagementController {
             ResultSet resultTempInput = stat.executeQuery("SELECT \n" +
                     "sensorlocatie.locatie,\n"+ 
                     "sensorlocatie.type,\n" +
+                    "sensorlocatie.kasNummer,\n" +
                     "tempratuursensor.tempInput,\n" +
                     "tempratuursensor.datumTijd\n" +
                     "FROM kas\n" +
@@ -457,4 +459,425 @@ public class SensorManagementController {
                       }
         return BodemArray;
     }
+    
+    public ObservableList<TempratuurSensor> getFilterBinnenTempratuurData(){
+        Connection con1 = null;
+        
+        try{
+            
+            con1 = DBCPDataSource.getConnection();
+            Statement stat = con1.createStatement();
+            String kasNummerKeuze =sensorManagementScherm.getKasWeerGeven().getValue().toString();
+            Integer IntkasNummerKeuze=Integer.parseInt(kasNummerKeuze);
+            
+            ResultSet resultTempInput = stat.executeQuery("SELECT \n" +
+                    "sensorlocatie.locatie,\n"+ 
+                    "sensorlocatie.type,\n" +
+                    "sensorlocatie.kasNummer,\n" +
+                    "tempratuursensor.tempInput,\n" +
+                    "tempratuursensor.datumTijd\n" +
+                    "FROM kas\n" +
+                    "INNER JOIN sensorlocatie ON sensorlocatie.kasNummer = kas.kasNummer\n" +
+                    "LEFT JOIN tempratuursensor ON tempratuursensor.sensorId = sensorlocatie.sensorId\n" +
+                    "WHERE sensorlocatie.kasNummer = "+IntkasNummerKeuze+" and tempInput IS NOT NULL\n"
+                    + "ORDER BY tempratuursensor.datumTijd DESC LIMIT 12");
+                    
+                while(resultTempInput.next()){
+                       
+                        String strLocatie = resultTempInput.getString("locatie");
+                        String strType= resultTempInput.getString("type");
+                        String strInput= resultTempInput.getString("tempInput");
+                        String strDatumTijd= resultTempInput.getString("datumTijd");
+                        
+                        if(strLocatie.equals("binnen")){
+                            TempratuurSensor binnenTempratuurSensor = new TempratuurSensor(strLocatie,strType,strInput,strDatumTijd);
+                            BinnenTempArray.add(binnenTempratuurSensor);
+                            
+                        }
+                        
+                        
+                        
+                        
+                    }
+          
+                        
+                    } catch (SQLException se) {
+                    se.printStackTrace();
+                        } 
+                      finally {
+                            try {
+                                con1.close();
+                              } 
+                            catch (Exception e) {
+                              }
+                      }
+     
+        
+        return BinnenTempArray;
+    }
+    
+    public ObservableList<TempratuurSensor> getFilterBuitenTempratuurData(){
+        Connection con1 = null;
+        
+        try{
+            
+            con1 = DBCPDataSource.getConnection();
+            Statement stat = con1.createStatement();
+            String kasNummerKeuze =sensorManagementScherm.getKasWeerGeven().getValue().toString();
+            Integer IntkasNummerKeuze=Integer.parseInt(kasNummerKeuze);
+            
+            ResultSet resultTempInput = stat.executeQuery("SELECT \n" +
+                    "sensorlocatie.locatie,\n"+ 
+                    "sensorlocatie.type,\n" +
+                    "tempratuursensor.tempInput,\n" +
+                    "tempratuursensor.datumTijd\n" +
+                    "FROM kas\n" +
+                    "INNER JOIN sensorlocatie ON sensorlocatie.kasNummer = kas.kasNummer\n" +
+                    "LEFT JOIN tempratuursensor ON tempratuursensor.sensorId = sensorlocatie.sensorId\n" +
+                    "WHERE sensorlocatie.kasNummer = "+IntkasNummerKeuze+" and tempInput IS NOT NULL\n"
+                    + "ORDER BY tempratuursensor.datumTijd DESC LIMIT 12");
+                    
+                while(resultTempInput.next()){
+                       
+                        String strLocatie = resultTempInput.getString("locatie");
+                        String strType= resultTempInput.getString("type");
+                        String strInput= resultTempInput.getString("tempInput");
+                        String strDatumTijd= resultTempInput.getString("datumTijd");
+                        
+                       
+                        if(strLocatie.equals("buiten")){
+                            TempratuurSensor buitenTempratuurSensor = new TempratuurSensor(strLocatie,strType,strInput,strDatumTijd);
+                            BuitenTempArray.add(buitenTempratuurSensor);
+                            
+                        }
+                        
+                    }
+          
+                        
+                    } catch (SQLException se) {
+                    se.printStackTrace();
+                        } 
+                      finally {
+                            try {
+                                con1.close();
+                              } 
+                            catch (Exception e) {
+                              }
+                      }
+        
+        return BuitenTempArray;
+    }
+    
+    public ObservableList<LuchtVochtigheidSensor> getFilterBinnenLuchtVochtigheidData(){
+        Connection con1 = null;
+        
+        try{
+            
+            con1 = DBCPDataSource.getConnection();
+            Statement stat = con1.createStatement();
+            String kasNummerKeuze =sensorManagementScherm.getKasWeerGeven().getValue().toString();
+            Integer IntkasNummerKeuze=Integer.parseInt(kasNummerKeuze);
+            
+            ResultSet resultLuchtVochtInput = stat.executeQuery("SELECT \n" +
+                    "sensorlocatie.locatie,\n"+ 
+                    "sensorlocatie.type,\n" +
+                    "luchtvochtsensor.luchtVochtInput,\n" +
+                    "luchtvochtsensor.datumTijd\n" +
+                    "FROM kas\n" +
+                    "INNER JOIN sensorlocatie ON sensorlocatie.kasNummer = kas.kasNummer\n" +
+                    "LEFT JOIN luchtvochtsensor ON luchtvochtsensor.sensorId = sensorlocatie.sensorId\n" +
+                    "WHERE sensorlocatie.kasNummer = "+IntkasNummerKeuze+" and luchtVochtInput IS NOT NULL\n"
+                    + "ORDER BY luchtvochtsensor.datumTijd DESC LIMIT 12");
+                    
+                while(resultLuchtVochtInput.next()){
+                       
+                        String strLocatie = resultLuchtVochtInput.getString("locatie");
+                        String strType= resultLuchtVochtInput.getString("type");
+                        String strInput= resultLuchtVochtInput.getString("luchtVochtInput");
+                        String strDatumTijd= resultLuchtVochtInput.getString("datumTijd");
+                        
+                        if(strLocatie.equals("binnen")){
+                            LuchtVochtigheidSensor binnenLuchtSensor = new LuchtVochtigheidSensor(strLocatie,strType,strInput,strDatumTijd);
+                            BinnenLuchtArray.add(binnenLuchtSensor);
+                            
+                        }
+                        
+                      }
+          
+                        
+                    } catch (SQLException se) {
+                    se.printStackTrace();
+                        } 
+                      finally {
+                            try {
+                                con1.close();
+                              } 
+                            catch (Exception e) {
+                              }
+                      }
+        return BinnenLuchtArray;
+    }
+    
+    public ObservableList<LuchtVochtigheidSensor> getFilterBuitenLuchtVochtigheidData(){
+        Connection con1 = null;
+        
+        try{
+            
+            con1 = DBCPDataSource.getConnection();
+            Statement stat = con1.createStatement();
+            String kasNummerKeuze =sensorManagementScherm.getKasWeerGeven().getValue().toString();
+            Integer IntkasNummerKeuze=Integer.parseInt(kasNummerKeuze);
+            
+            ResultSet resultLuchtVochtInput = stat.executeQuery("SELECT \n" +
+                    "sensorlocatie.locatie,\n"+ 
+                    "sensorlocatie.type,\n" +
+                    "luchtvochtsensor.luchtVochtInput,\n" +
+                    "luchtvochtsensor.datumTijd\n" +
+                    "FROM kas\n" +
+                    "INNER JOIN sensorlocatie ON sensorlocatie.kasNummer = kas.kasNummer\n" +
+                    "LEFT JOIN luchtvochtsensor ON luchtvochtsensor.sensorId = sensorlocatie.sensorId\n" +
+                    "WHERE sensorlocatie.kasNummer = "+IntkasNummerKeuze+" and luchtVochtInput IS NOT NULL\n"
+                    + "ORDER BY luchtvochtsensor.datumTijd DESC LIMIT 12");
+                    
+                while(resultLuchtVochtInput.next()){
+                       
+                        String strLocatie = resultLuchtVochtInput.getString("locatie");
+                        String strType= resultLuchtVochtInput.getString("type");
+                        String strInput= resultLuchtVochtInput.getString("luchtVochtInput");
+                        String strDatumTijd= resultLuchtVochtInput.getString("datumTijd");
+                        
+                       
+                        if(strLocatie.equals("buiten")){
+                            LuchtVochtigheidSensor buitenLuchtSensor = new LuchtVochtigheidSensor(strLocatie,strType,strInput,strDatumTijd);
+                            BuitenLuchtArray.add(buitenLuchtSensor);
+                        }
+                      }
+          
+                        
+                    } catch (SQLException se) {
+                    se.printStackTrace();
+                        } 
+                      finally {
+                            try {
+                                con1.close();
+                              } 
+                            catch (Exception e) {
+                              }
+                      }
+        return BuitenLuchtArray;
+    }
+    
+    public ObservableList<WindSensor> getFilterWindData(){
+        Connection con1 = null;
+        
+        try{
+            
+            con1 = DBCPDataSource.getConnection();
+            Statement stat = con1.createStatement();
+            String kasNummerKeuze =sensorManagementScherm.getKasWeerGeven().getValue().toString();
+            Integer IntkasNummerKeuze=Integer.parseInt(kasNummerKeuze);
+            
+            ResultSet resultWindInput = stat.executeQuery("SELECT \n" +
+                    "sensorlocatie.locatie,\n"+ 
+                    "sensorlocatie.type,\n" +
+                    "windsensor.windInput,\n" +
+                    "windsensor.datumTijd\n" +
+                    "FROM kas\n" +
+                    "INNER JOIN sensorlocatie ON sensorlocatie.kasNummer = kas.kasNummer\n" +
+                    "LEFT JOIN windsensor ON windsensor.sensorId = sensorlocatie.sensorId\n" +
+                    "WHERE sensorlocatie.kasNummer = "+IntkasNummerKeuze+" and windInput IS NOT NULL\n"
+                    + "ORDER BY windsensor.datumTijd DESC LIMIT 12");
+                    
+                while(resultWindInput.next()){
+                       
+                        String strLocatie = resultWindInput.getString("locatie");
+                        String strType= resultWindInput.getString("type");
+                        String strInput= resultWindInput.getString("windInput");
+                        String strDatumTijd= resultWindInput.getString("datumTijd");
+                        
+                        WindSensor windSensor = new WindSensor(strLocatie,strType,strInput,strDatumTijd);
+                        WindArray.add(windSensor);
+                        
+                        
+                      }
+          
+                        
+                    } catch (SQLException se) {
+                    se.printStackTrace();
+                        } 
+                      finally {
+                            try {
+                                con1.close();
+                              } 
+                            catch (Exception e) {
+                              }
+                      }
+        return WindArray;
+    }
+    
+    public ObservableList<LichtSensor> getFilterLichtData(){
+        Connection con1 = null;
+        
+        try{
+            
+            con1 = DBCPDataSource.getConnection();
+            Statement stat = con1.createStatement();
+            String kasNummerKeuze =sensorManagementScherm.getKasWeerGeven().getValue().toString();
+            Integer IntkasNummerKeuze=Integer.parseInt(kasNummerKeuze);
+            
+            ResultSet resultLichtInput = stat.executeQuery("SELECT \n" +
+                    "sensorlocatie.locatie,\n"+ 
+                    "sensorlocatie.type,\n" +
+                    "lichtsensor.lichtInput,\n" +
+                    "lichtsensor.datumTijd\n" +
+                    "FROM kas\n" +
+                    "INNER JOIN sensorlocatie ON sensorlocatie.kasNummer = kas.kasNummer\n" +
+                    "LEFT JOIN lichtsensor ON lichtsensor.sensorId = sensorlocatie.sensorId\n" +
+                    "WHERE sensorlocatie.kasNummer = "+IntkasNummerKeuze+" and lichtInput IS NOT NULL\n"
+                    + "ORDER BY lichtsensor.datumTijd DESC LIMIT 12");
+                    
+                while(resultLichtInput.next()){
+                       
+                        String strLocatie = resultLichtInput.getString("locatie");
+                        String strType= resultLichtInput.getString("type");
+                        String strInput= resultLichtInput.getString("lichtInput");
+                        String strDatumTijd= resultLichtInput.getString("datumTijd");
+                        
+                        LichtSensor lichtSensor = new LichtSensor(strLocatie,strType,strInput,strDatumTijd);
+                        LichtArray.add(lichtSensor);
+                        
+                        
+                      }
+          
+                        
+                    } catch (SQLException se) {
+                    se.printStackTrace();
+                        } 
+                      finally {
+                            try {
+                                con1.close();
+                              } 
+                            catch (Exception e) {
+                              }
+                      }
+        return LichtArray;
+    }
+    
+    public ObservableList<BodemVochtigheidSensor> getFilterBodemVochtigheidData(){
+        Connection con1 = null;
+        
+        try{
+            
+            con1 = DBCPDataSource.getConnection();
+            Statement stat = con1.createStatement();
+            String kasNummerKeuze =sensorManagementScherm.getKasWeerGeven().getValue().toString();
+            Integer IntkasNummerKeuze=Integer.parseInt(kasNummerKeuze);
+            
+            ResultSet resultBodemVochtInput = stat.executeQuery("SELECT \n" +
+                    "sensorlocatie.locatie,\n"+ 
+                    "sensorlocatie.type,\n" +
+                    "bodemvochtsensor.bodemvochtInput,\n" +
+                    "bodemvochtsensor.datumTijd\n" +
+                    "FROM kas\n" +
+                    "INNER JOIN sensorlocatie ON sensorlocatie.kasNummer = kas.kasNummer\n" +
+                    "LEFT JOIN bodemvochtsensor ON bodemvochtsensor.sensorId = sensorlocatie.sensorId\n" +
+                    "WHERE sensorlocatie.kasNummer = "+IntkasNummerKeuze+" and bodemvochtInput IS NOT NULL\n"
+                    + "ORDER BY bodemvochtsensor.datumTijd DESC LIMIT 12");
+                    
+                while(resultBodemVochtInput.next()){
+                       
+                        String strLocatie = resultBodemVochtInput.getString("locatie");
+                        String strType= resultBodemVochtInput.getString("type");
+                        String strInput= resultBodemVochtInput.getString("bodemvochtInput");
+                        String strDatumTijd= resultBodemVochtInput.getString("datumTijd");
+                        
+                        BodemVochtigheidSensor bodemSensor = new BodemVochtigheidSensor(strLocatie,strType,strInput,strDatumTijd);
+                        BodemArray.add(bodemSensor);
+                        
+                        
+                        
+                      }
+          
+                        
+                    } catch (SQLException se) {
+                    se.printStackTrace();
+                        } 
+                      finally {
+                            try {
+                                con1.close();
+                              } 
+                            catch (Exception e) {
+                              }
+                      }
+        return BodemArray;
+    }
+    
 }
+
+
+
+//public ObservableList<TempratuurSensor> getBinnenTempratuurData(){
+//        Connection con1 = null;
+//        String kasNummerKeuze =sensorManagementScherm.getKasWeerGeven().getSelectionModel().toString();
+//        int IntkasNummerKeuze=Integer.parseInt(kasNummerKeuze);
+//        
+//        try{
+//            
+//            con1 = DBCPDataSource.getConnection();
+//            Statement stat = con1.createStatement();
+//            
+//            ResultSet resultTempInput = stat.executeQuery("SELECT \n" +
+//                    "sensorlocatie.locatie,\n"+ 
+//                    "sensorlocatie.type,\n" +
+//                    "sensorlocatie.kasNummer,\n" +
+//                    "tempratuursensor.tempInput,\n" +
+//                    "tempratuursensor.datumTijd\n" +
+//                    "FROM kas\n" +
+//                    "INNER JOIN sensorlocatie ON sensorlocatie.kasNummer = kas.kasNummer\n" +
+//                    "LEFT JOIN tempratuursensor ON tempratuursensor.sensorId = sensorlocatie.sensorId\n" +
+//                    "WHERE sensorlocatie.kasNummer = "+IntkasNummerKeuze+" and tempInput IS NOT NULL\n"
+//                    + "ORDER BY tempratuursensor.datumTijd DESC LIMIT 12");
+//                    
+//                while(resultTempInput.next()){
+//                       
+//                        String strLocatie = resultTempInput.getString("locatie");
+//                        String strType= resultTempInput.getString("type");
+//                        String strInput= resultTempInput.getString("tempInput");
+//                        String strDatumTijd= resultTempInput.getString("datumTijd");
+//                        
+//                        if(strLocatie.equals("binnen")){
+//                            TempratuurSensor binnenTempratuurSensor = new TempratuurSensor(strLocatie,strType,strInput,strDatumTijd);
+//                            BinnenTempArray.add(binnenTempratuurSensor);
+//                            
+//                        }
+//                        
+//                        
+//                        
+//                        
+//                    }
+//          
+//                        
+//                    } catch (SQLException se) {
+//                    se.printStackTrace();
+//                        } 
+//                      finally {
+//                            try {
+//                                con1.close();
+//                              } 
+//                            catch (Exception e) {
+//                              }
+//                      }
+//     
+//        
+//        return BinnenTempArray;
+//    }
+
+
+
+
+
+
+
+
+
+

@@ -41,11 +41,7 @@ public class ToestemmingController {
                     Integer intWindInput = result.getInt("windInput");
                     
                     
-                    if(intWindInput < 11){                     
-                        resultWindString= "te laag";
-                    }
-                    
-                    if(intWindInput > 10 && intWindInput < 20){
+                    if(intWindInput < 20){
                         resultWindString= "goed";
                     }
                     
@@ -85,15 +81,15 @@ public class ToestemmingController {
                     Integer intlichtInput = result.getInt("lichtInput");
                     
 
-                    if(intlichtInput < 11){                     
+                    if(intlichtInput < 695){                     
                         resultLichtString= "te laag";
                     }
                     
-                    if(intlichtInput > 10 && intlichtInput < 20){
+                    if(intlichtInput > 694 && intlichtInput < 705){
                         resultLichtString= "goed";
                     }
                     
-                    if(intlichtInput > 20){
+                    if(intlichtInput > 704){
                         resultLichtString= "te hoog";
                     }
                     
@@ -127,15 +123,15 @@ public class ToestemmingController {
                     Integer intbodemVochtInput = result.getInt("bodemVochtInput");
                     
                     
-                    if(intbodemVochtInput < 11){                     
+                    if(intbodemVochtInput < 20){                     
                         resultBodemVochtString= "te laag";
                     }
                     
-                    if(intbodemVochtInput > 10 && intbodemVochtInput < 20){
+                    if(intbodemVochtInput > 19 && intbodemVochtInput < 30){
                         resultBodemVochtString= "goed";
                     }
                     
-                    if(intbodemVochtInput > 20){
+                    if(intbodemVochtInput > 29){
                         resultBodemVochtString= "te hoog";
                     }
                     
@@ -170,15 +166,15 @@ public class ToestemmingController {
                     Integer intbinnenTempInput = result.getInt("tempInput");
                     
                     
-                    if(intbinnenTempInput < 11){                     
+                    if(intbinnenTempInput < 20){                     
                         resultBinnenTempString= "te laag";
                     }
                     
-                    if(intbinnenTempInput > 10 && intbinnenTempInput < 20){
+                    if(intbinnenTempInput > 19 && intbinnenTempInput < 30){
                         resultBinnenTempString= "goed";
                     }
                     
-                    if(intbinnenTempInput > 20){
+                    if(intbinnenTempInput > 29){
                         resultBinnenTempString= "te hoog";
                     }
                     
@@ -212,7 +208,7 @@ public class ToestemmingController {
                     Integer intbuitenTempInput = result.getInt("tempInput");
                     
                     
-                    if(intbuitenTempInput < 11){                     
+                    if(intbuitenTempInput < -0){                     
                         resultBuitenTempString= "te laag";
                     }
                     
@@ -220,7 +216,7 @@ public class ToestemmingController {
                         resultBuitenTempString= "goed";
                     }
                     
-                    if(intbuitenTempInput > 20){
+                    if(intbuitenTempInput > 29){
                         resultBuitenTempString= "te hoog";
                     }
                     
@@ -255,15 +251,15 @@ public class ToestemmingController {
                     Integer intbinnenLuchtInput = result.getInt("luchtVochtInput");
                     
                     
-                    if(intbinnenLuchtInput < 11){                     
+                    if(intbinnenLuchtInput < 65){                     
                         resultBinnenLuchtString= "te laag";
                     }
                     
-                    if(intbinnenLuchtInput > 10 && intbinnenLuchtInput < 20){
+                    if(intbinnenLuchtInput > 64 && intbinnenLuchtInput < 75){
                         resultBinnenLuchtString= "goed";
                     }
                     
-                    if(intbinnenLuchtInput > 20){
+                    if(intbinnenLuchtInput > 74){
                         resultBinnenLuchtString= "te hoog";
                     }
                     
@@ -296,15 +292,11 @@ public class ToestemmingController {
                     Integer intbuitenLuchtInput = result.getInt("luchtVochtInput");
                     
                     
-                    if(intbuitenLuchtInput < 11){                     
-                        resultBuitenLuchtString= "te laag";
-                    }
-                    
-                    if(intbuitenLuchtInput > 10 && intbuitenLuchtInput < 20){
+                    if(intbuitenLuchtInput > 64 && intbuitenLuchtInput < 75){
                         resultBuitenLuchtString= "goed";
                     }
                     
-                    if(intbuitenLuchtInput > 20){
+                    if(intbuitenLuchtInput > 74){
                         resultBuitenLuchtString= "te hoog";
                     }
                     
