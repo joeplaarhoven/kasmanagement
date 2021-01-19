@@ -1,6 +1,5 @@
 package com.bp6.kasmanagement.view;
 
-import com.bp6.kasmanagement.ID3.Driver;
 import com.bp6.kasmanagement.controller.SensorManagementController;
 import com.bp6.kasmanagement.model.BodemVochtigheidSensor;
 import com.bp6.kasmanagement.model.LichtSensor;
@@ -8,8 +7,6 @@ import com.bp6.kasmanagement.model.LuchtVochtigheidSensor;
 import com.bp6.kasmanagement.model.TempratuurSensor;
 import com.bp6.kasmanagement.model.WindSensor;
 import java.io.File;
-import java.util.HashMap;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -29,9 +26,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 /**
  *
  * @author Dahir
@@ -42,11 +36,11 @@ public class SensorManagementScherm extends BorderPane {
     private VBox Labels_Knoppen, Buttons_knoppenAan,Buttons_knoppenUit,vbox_kasToevoegen,vbox_locatieToevoegen,vbox_typeToevoegen;
     private HBox hbox_Main,hbox_BinnenWaarden, hbox_tableView,hbox_Actuatoren,hbox_KasKeuze,hbox_Toevoegen;
    
-    private ChoiceBox kasToevoegen,locatieToevoegen;
+    private ChoiceBox kasToevoegen,kasWeerGeven,locatieToevoegen;
     private CheckBox sensor_Toevoegen;
-    private Label lb_KasKeuze, lb_kasToevoegen,lb_locatieToevoegen,lb_typeToevoegen,lb_sensorToevoegen,lb_binnen,lb_buiten;
+    private Label lb_KasKeuze, lb_kasToevoegen,lb_locatieToevoegen,lb_typeToevoegen,lb_sensorToevoegen,lb_binnen,lb_buiten,lb_KasSelect,lb_Refresh;
     private TextField tf_toevoegen;
-    private Button btn_Toevoegen,refresh;
+    private Button btn_Toevoegen,refresh,filter;
     
     private TableView binnenTempratuurTableView = new TableView();
     private TableView buitenTempratuurTableView = new TableView();
@@ -61,7 +55,6 @@ public class SensorManagementScherm extends BorderPane {
     private ImageView imageview = new ImageView(image_reloadknop);
 
     private SensorManagementController sensorManagementController;
-    Driver driver;
 
   
     
@@ -72,6 +65,8 @@ public class SensorManagementScherm extends BorderPane {
         // Creates Choicebox and sets prefSize
         kasToevoegen = new ChoiceBox();
         locatieToevoegen = new ChoiceBox();
+        kasWeerGeven = new ChoiceBox();
+        kasWeerGeven.setPrefSize(60, 30);
         kasToevoegen.setPrefSize(100, 30);
         locatieToevoegen.setPrefSize(100, 30);
         
@@ -98,9 +93,11 @@ public class SensorManagementScherm extends BorderPane {
         lb_kasToevoegen = new Label("Kas:");
         lb_locatieToevoegen = new Label("Locatie:");
         lb_typeToevoegen = new Label("Type:");
-        lb_sensorToevoegen = new Label("Sensor toevoegen->");
+        lb_sensorToevoegen = new Label("Sensor toevoegen");
         lb_binnen=new Label("Binnen:   ");
         lb_buiten=new Label("       Buiten:   ");
+        lb_KasSelect = new Label("Selecteer kas:");
+        lb_Refresh= new Label("Refresh");
         
         // Set Fonts labels
         lb_KasKeuze.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
@@ -110,6 +107,8 @@ public class SensorManagementScherm extends BorderPane {
         lb_sensorToevoegen.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         lb_binnen.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         lb_buiten.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        lb_KasSelect.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        lb_Refresh.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         
          // Set witdth labels
         lb_KasKeuze.setPrefHeight(30);
@@ -119,6 +118,8 @@ public class SensorManagementScherm extends BorderPane {
         lb_sensorToevoegen.setPrefHeight(30);
         lb_binnen.setPrefHeight(30);
         lb_buiten.setPrefHeight(30);
+        lb_KasSelect.setPrefHeight(30);
+        lb_Refresh.setPrefHeight(30);
         
         // Sets textfields
         tf_toevoegen = new TextField();
@@ -130,14 +131,12 @@ public class SensorManagementScherm extends BorderPane {
         // Sets button
         btn_Toevoegen = new Button("Toevoegen");
         refresh = new Button();
-        
-        // Sets padding button
-        btn_Toevoegen.setPadding(new Insets(5, 5, 5, 5));
-        refresh.setPadding(new Insets(5, 5, 5, 5));
+        filter = new Button("Filter");
         
         // Sets size button
         btn_Toevoegen.setPrefSize(100,30);
         refresh.setPrefSize(10, 10);
+        filter.setPrefSize(60, 30);
         
         /* buttonImage */
         imageview.setPreserveRatio(true);
@@ -162,7 +161,7 @@ public class SensorManagementScherm extends BorderPane {
         
         // set Padding Hbox
         hbox_KasKeuze.setPadding(new Insets(30, 5, 5, 70));
-        hbox_Main.setPadding(new Insets(350, 5, 5, 70));
+        hbox_Main.setPadding(new Insets(30, 5, 5, 70));
         hbox_tableView.setPadding(new Insets(30, 5, 5, 70));
         
         // set visibility Hbox
@@ -175,9 +174,9 @@ public class SensorManagementScherm extends BorderPane {
         
         
         // Places the Vbox in the Hbox
-        hbox_tableView.getChildren().addAll(lb_binnen,binnenTempratuurTableView,binnenLuchtVochtTableView,lichtTableView,bodemVochtTableView,lb_buiten,
+        hbox_tableView.getChildren().addAll(kasWeerGeven,lb_binnen,binnenTempratuurTableView,binnenLuchtVochtTableView,lichtTableView,bodemVochtTableView,lb_buiten,
                 buitenTempratuurTableView,buitenLuchtVochtTableView ,windTableView);
-        hbox_KasKeuze.getChildren().addAll(lb_sensorToevoegen,sensor_Toevoegen,refresh);
+        hbox_KasKeuze.getChildren().addAll(lb_KasSelect,kasWeerGeven,filter,lb_sensorToevoegen,sensor_Toevoegen,lb_Refresh,refresh);
         hbox_Toevoegen.getChildren().addAll(vbox_kasToevoegen,vbox_locatieToevoegen,vbox_typeToevoegen);
         hbox_Main.getChildren().addAll(hbox_Toevoegen);
        
@@ -185,7 +184,7 @@ public class SensorManagementScherm extends BorderPane {
         // Places the mainHbox in the GridPane
         Gridpane_Hoofdscherm.add(hbox_KasKeuze, 0, 0);
         Gridpane_Hoofdscherm.add(hbox_tableView, 0, 1);
-        Gridpane_Hoofdscherm.add(hbox_Main, 0, 1);
+        Gridpane_Hoofdscherm.add(hbox_Main, 0, 2);
         
         
         // Setting tablecolumns
@@ -271,6 +270,35 @@ public class SensorManagementScherm extends BorderPane {
             }
         });
         
+        filter.setOnAction(event->{
+        
+        binnenTempratuurTableView.getItems().clear();
+        buitenTempratuurTableView.getItems().clear();
+        binnenLuchtVochtTableView.getItems().clear();
+        buitenLuchtVochtTableView.getItems().clear();
+        windTableView.getItems().clear();
+        lichtTableView.getItems().clear();
+        bodemVochtTableView.getItems().clear();
+        
+        binnenTempratuurTableView.setItems(sensorManagementController.getFilterBinnenTempratuurData());
+        buitenTempratuurTableView.setItems(sensorManagementController.getFilterBuitenTempratuurData());
+        binnenLuchtVochtTableView.setItems(sensorManagementController.getFilterBinnenLuchtVochtigheidData());
+        buitenLuchtVochtTableView.setItems(sensorManagementController.getFilterBuitenLuchtVochtigheidData());
+        windTableView.setItems(sensorManagementController.getFilterWindData());
+        lichtTableView.setItems(sensorManagementController.getFilterLichtData());
+        bodemVochtTableView.setItems(sensorManagementController.getFilterBodemVochtigheidData());
+        
+        binnenTempratuurTableView.refresh();
+        buitenTempratuurTableView.refresh();
+        binnenLuchtVochtTableView.refresh();
+        buitenLuchtVochtTableView.refresh();
+        windTableView.refresh();
+        lichtTableView.refresh();
+        bodemVochtTableView.refresh();
+            
+            
+        });
+        
         refresh.setOnAction(event->{
         
         binnenTempratuurTableView.getItems().clear();
@@ -288,7 +316,6 @@ public class SensorManagementScherm extends BorderPane {
         windTableView.setItems(sensorManagementController.getWindData());
         lichtTableView.setItems(sensorManagementController.getLichtData());
         bodemVochtTableView.setItems(sensorManagementController.getBodemVochtigheidData());
-        
         
         binnenTempratuurTableView.refresh();
         buitenTempratuurTableView.refresh();
@@ -309,6 +336,8 @@ public class SensorManagementScherm extends BorderPane {
         this.setCenter(Gridpane_Hoofdscherm); 
 
     }
+
+    
     
     // Eventhandlers
     public void ShowToevoegenHbox(){
@@ -321,6 +350,10 @@ public class SensorManagementScherm extends BorderPane {
         hbox_Toevoegen.setVisible(false);
     }
 
+    public ChoiceBox getKasWeerGeven() {
+        return kasWeerGeven;
+    }
+    
     public ChoiceBox getKasToevoegen() {
         return kasToevoegen;
     }
