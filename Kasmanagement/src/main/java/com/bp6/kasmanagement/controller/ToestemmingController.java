@@ -208,11 +208,11 @@ public class ToestemmingController {
                     Integer intbuitenTempInput = result.getInt("tempInput");
                     
                     
-                    if(intbuitenTempInput < -0){                     
+                    if(intbuitenTempInput < 21){                     
                         resultBuitenTempString= "te laag";
                     }
                     
-                    if(intbuitenTempInput > 10 && intbuitenTempInput < 20){
+                    if(intbuitenTempInput > 20 && intbuitenTempInput < 30){
                         resultBuitenTempString= "goed";
                     }
                     
@@ -291,6 +291,9 @@ public class ToestemmingController {
                    
                     Integer intbuitenLuchtInput = result.getInt("luchtVochtInput");
                     
+                    if(intbuitenLuchtInput <65){
+                        resultBuitenLuchtString= "te laag";
+                    }
                     
                     if(intbuitenLuchtInput > 64 && intbuitenLuchtInput < 75){
                         resultBuitenLuchtString= "goed";
